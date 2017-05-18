@@ -1,0 +1,12 @@
+variables:
+  a : integer;
+  b[3][3][3] : integer;
+  c : integer;
+  d : integer;
+domains:
+ a,b,c,d <- [0..10];
+
+constraints:
+
+
+solutions:1

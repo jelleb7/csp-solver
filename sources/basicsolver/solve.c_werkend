@@ -1,0 +1,723 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
+#include <math.h> 
+#include <sys/resource.h>
+#include "datatypes.h"
+#include "problem.h"
+#include "variable.h"
+#include "constraint.h"
+#include "backup.h"
+#include "solve.h"
+
+#define LOG 1
+
+#define NODE 1
+#define ARC 2
+#define CONSISTENCY ARC
+
+#define MRV 0
+#define DEGREE_HEURISTIC 0
+
+#define FC 0
+
+#define CP 0
+#define SINGLETON 1
+#define REDUCTION 2
+#define CPREASON SINGLETON
+
+int removeFromSequence, insertInSequence, insertInBetween, 
+    resortSequence, restoreSequence, printSequence;
+
+int (*varOrdered)(Variable, Variable);
+static int **inArcsQueue;
+extern FILE *logFile;
+
+long stateCount = 0;
+long valueTrials = 0;
+long unaryDomainLimits = 0;
+long unaryValueLimits = 0;
+long arcDomainLimits = 0;
+long arcValueLimits = 0;
+
+/* src: http://www.cplusplus.com/reference/cstdio/vprintf/ */
+void addLog(const char * format, ...) {
+	if(LOG) {
+		va_list args;
+	  	va_start (args, format);
+	  	vfprintf (logFile, format, args);
+	  	va_end (args);
+  	}
+}
+
+/* checks if the constraint c is satisfiable */
+int satisfiable(Constraint c, Problem p) {
+	int *varIndices = getConstraintVarIndices(c);
+	Domain fullDomain;
+	Variable unassignedVar;
+	int *values;
+	int i, j;
+	int satisfied = 0;
+	
+	/* search for variable that is not yet assigned */
+	for(i = 0; i < getConstraintVarCount(c) && singletonDomain(getVarDomain(getVariable(p, varIndices[i]))); i++);
+	
+	if(i == getConstraintVarCount(c)) { /* all variables have a singleton domain -> one possibility */
+		return checkConstraint(c, p);
+	} 
+	
+	/* a variable that is not assigned yet is found */
+	unassignedVar = getVariable(p, varIndices[i]);
+	fullDomain = getVarDomain(unassignedVar);
+	values = getDomainValues(fullDomain);
+	for(j = 0; j < getDomainSize(fullDomain); j++) {
+		setVarDomain(unassignedVar, getSingletonDomain(values[j]));
+		satisfied = satisfiable(c, p);
+		freeDomain(getVarDomain(unassignedVar));
+		if(satisfied) {
+			break;
+		}
+	}
+	
+	setVarDomain(unassignedVar, fullDomain);		/* reset old domain of the ith variable */
+	return satisfied;
+}
+
+int nodeReduce(Variable v, Constraint c, Problem p) {
+	Domain domain = getVarDomain(v);
+	int *values = getDomainValues(domain);
+	int changed = 0;
+	int remove, i;
+	if(getConstraintVarCount(c) != 1) {
+		return 0;
+	}
+	for(i = 0; i < getDomainSize(domain); i++) {
+		setVarDomain(v, getSingletonDomain(values[i]));
+		remove = !checkConstraint(c, p);
+		freeDomain(getVarDomain(v));
+		if(remove) {
+			changed = 1;
+			unaryValueLimits++;
+			removeNthValueFromDomain(domain, i);
+			i--;
+		}
+	}
+	setVarDomain(v, domain);
+	unaryDomainLimits += changed;
+	return changed;
+}
+
+/* the input should be a constraint that depends on two variables (v and another one) */
+int arcReduce(Variable v, Constraint c, Problem p) {
+	Domain domain = getVarDomain(v);
+	int *values = getDomainValues(domain);
+	int changed = 0;
+	int remove, i;
+	if(getConstraintVarCount(c) != 2) {
+		return 0;
+	}
+	for(i = 0; i < getDomainSize(domain); i++) {
+		setVarDomain(v, getSingletonDomain(values[i]));
+		remove = !satisfiable(c, p);
+		freeDomain(getVarDomain(v));
+		if(remove) {
+			changed = 1;
+			arcValueLimits++;
+			removeNthValueFromDomain(domain, i);
+			i--;
+		}
+	}
+	setVarDomain(v, domain);
+	arcDomainLimits += changed;
+	return changed;
+}
+
+/* 
+	This function adds all neighbours (defined by a binary constraint) of variable var to a queue and the constraint to another queue.
+	In the end dequeueing an element of both queues will give an arc in which var is involved.	
+*/
+void addVariableArcs(Variable var, Queue constraintQueue, Queue variableQueue, Problem p) {
+	int i;
+	int *varIndices;
+	int *constraintIndices = getVarConstraintIndices(var);				/* get indices of constraints in which var is involved */
+	Constraint c;
+	Variable var2;
+	for(i = 0; i < getVarConstraintCount(var); i++) {					/* for all these constraints */
+		c = getConstraint(p, constraintIndices[i]);
+		if(getConstraintVarCount(c) == 2) {									/* if this constraint is binary */
+			varIndices = getConstraintVarIndices(c);	
+			if(varIndices[0] == var->index) {
+				var2 = getVariable(p, varIndices[1]);
+			} else {
+				var2 = getVariable(p, varIndices[0]);
+			}
+			if(!inArcsQueue[c->index][var2->index]) {							/* if (constraint, var) not already in queue */
+				enqueue(constraintQueue, p->constraints[constraintIndices[i]]);		/* enqueue this constraint */	
+				enqueue(variableQueue, var2);										/* together with the other variable */
+				inArcsQueue[c->index][var2->index] = 1;								/* mark arc as available in the queue */
+			}
+		}
+	}
+}
+
+/*
+	This function ensures that all variables of CSP p are consistent regarding their unary constraints. If a value in the domain of
+	a variable is not consistent with one of the unary constraints it is deleted and. When all inconsistent values are removed, the 
+	constraint is also removed such that it is not checked redundantly later on in the process.
+*/
+void makeNodeConsistent(Problem p) {
+	int i;
+	int *varIndices;
+	Constraint constraint;
+	Variable var;
+	
+	for(i = 0; i < p->constraintCount; i++) {					/* for each constraint of CSP p */
+		constraint = p->constraints[i];
+		varIndices = getConstraintVarIndices(constraint);			/* get indices of variables occurring in constraint */
+		if(getConstraintVarCount(constraint) == 1) {				/* if constraint is unary */
+			var = getVariable(p, varIndices[0]);						/* get variable which is involved in this constraint */
+			if(nodeReduce(var, constraint, p)) {						/* if domain of variable var is reduced */
+				if(getDomainSize(getVarDomain(var)) == 0) {						/* domain of var became empty -> error, no solution exists */
+					addLog("No solutions found for the problem, because variable X%d has an empty domain\n", var->index);
+					printf("\nNo solutions found for the problem, because variable with empty domain\n");
+					exit(-1);
+				}
+			}
+			removeConstraintFromVariable(var, constraint);				/* remove the constraint from the set of constraints of the variable */
+		}
+	}
+}
+
+/*
+	This function ensures that all domains of the variables of CSP are consistent regarding their binary constraints. After execution
+	the CSP p is fully arc-consistent or strongly 2-consistent.
+*/
+void makeArcConsistent(Problem p) {
+	int i;
+	Variable var;
+	int *varIndices;
+	Constraint constraint;
+	Queue constraintQueue = emptyQueue();
+	Queue variableQueue = emptyQueue();
+	
+	makeNodeConsistent(p);											/* first the CSP is made node-consistent */
+	
+	for(i = 0; i < p->constraintCount; i++) {						/* for each constraint of p */
+		constraint = p->constraints[i];
+		varIndices = getConstraintVarIndices(constraint);			/* get indices of variables occurring in constraint */
+		if(getConstraintVarCount(p->constraints[i]) == 2) {			/* if constraint is a binary constraint */
+			enqueue(constraintQueue, constraint);						/* enqueue constraint to constraint-queue */
+			enqueue(constraintQueue, constraint);						/* enqueue constraint to constraint-queue againg */
+			enqueue(variableQueue, getVariable(p, varIndices[0]));	 	/* enqueue first variable to variable-queue */
+			enqueue(variableQueue, getVariable(p, varIndices[1]));		/* enqueue second variable to variable-queue */
+			inArcsQueue[constraint->index][varIndices[0]] = 1;			/* directional arc (constraint, var1) is available in queues */
+			inArcsQueue[constraint->index][varIndices[1]] = 1;			/* directional arc (constraint, var2) is available in queues */
+		}
+	}
+	
+	while(!isEmptyQueue(constraintQueue)) {							/* until queue is empty */
+		constraint = dequeue(constraintQueue);						/* dequeue directional arc (var, constraint) */
+		var = dequeue(variableQueue);		
+		inArcsQueue[constraint->index][var->index] = 0;				/* directional arc (var, constraint) is not in queues anymore */
+		if(arcReduce(var, constraint, p)) {							/* if domain of var is reduced */
+			if(getDomainSize(getVarDomain(var)) == 0) {					/* if domain of var became empty -> error, no solution exists */
+				addLog("No solutions found for the problem, because variable X%d has an empty domain\n", var->index);
+				printf("\nNo solutions found for the problem, because variable with empty domain\n");
+				exit(-1);
+			}
+			addVariableArcs(var, constraintQueue, variableQueue, p);	/* because domain is reduced, domains of neighbours might be reduced */
+		}
+	}
+	
+	freeQueue(constraintQueue);
+	freeQueue(variableQueue);
+}
+
+int init(Problem p) {
+	int i, j;
+	p->assignCount = 0;
+	
+	int possibilities = 0;
+	int maxDomSize = 0;
+	int *domainCounts = safeCalloc(1, sizeof(int));
+	for(i = 0; i < p->varCount; i++) {
+		int domSize = getDomainSize(getVarDomain(getVariable(p, i)));
+		possibilities += domSize;
+		if(domSize > maxDomSize) {
+			domainCounts = safeRealloc(domainCounts, (domSize+1)*sizeof(int));
+			for(j = maxDomSize+1; j <= domSize; j++) {
+				domainCounts[j] = 0;
+			}
+			maxDomSize = domSize;
+		}
+		domainCounts[domSize]++;
+	}
+	addLog("\n");
+	addLog("# Before init: %d possible values and %d ", possibilities, (domainCounts[0] == 0));
+	for(i = 1; i <= maxDomSize; i++) {
+		if(domainCounts[i]) {
+			addLog("* %d^%d ", i, domainCounts[i]);
+		}
+	}
+	addLog("combinations\n");
+	addLog("# Applying substitution for single-value domains and checking applicable constraints:\n");
+	
+	switch(CONSISTENCY) {
+		case NODE:
+			makeNodeConsistent(p);
+			break;
+		case ARC:
+			makeArcConsistent(p);
+			break;
+	}
+	
+	possibilities = 0;
+	for(i = 0; i <= maxDomSize; i++) {
+		domainCounts[i] = 0;
+	}
+	for(i = 0; i < p->varCount; i++) {
+		int domSize = getDomainSize(getVarDomain(getVariable(p, i)));
+		possibilities += domSize;
+		domainCounts[domSize]++;
+	}
+	addLog("# After init: %d possible values and %d ", possibilities, (domainCounts[0] == 0));
+	for(i = 1; i <= maxDomSize; i++) {
+		if(domainCounts[i]) {
+			addLog("* %d^%d ", i, domainCounts[i]);
+		}
+	}
+	addLog("combinations\n");
+	free(domainCounts);
+	addLog("# After init: domains\n");
+	for(i = 0; i < p->varCount; i++) {
+		addLog("X%d: ", i);
+		printDomain(getVarDomain(getVariable(p, i)));
+		addLog("\n");
+	}
+	return 1;
+}
+
+int checkLocalConsistency(Variable var, Problem p) {
+	int i;
+	int *constraintIndices = getVarConstraintIndices(var);
+	Constraint c;
+	for(i = 0; i < getVarConstraintCount(var); i++) {		/* for all constraints connected to variable var */
+		c = getConstraint(p, constraintIndices[i]);				
+		if(determinable(c, p) && !checkConstraint(c, p)) {		/* check if inconsistent with partial solution */
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int ascDomainSize(Variable first, Variable second) {
+	return (getDomainSize(getVarDomain(first)) <= getDomainSize(getVarDomain(second)));
+}
+
+int ascConstraintCount(Variable first, Variable second) {
+	return (getVarConstraintCount(first) <= getVarConstraintCount(second));
+}
+
+/*
+void printQueues(Queue variableQueue, Queue constraintQueue) {
+	printf("printing queue: ");
+	Constraint c;
+	Variable v;
+	List varList = variableQueue->first;
+	List constraintList = constraintQueue->first;
+	while(varList != NULL) {
+		c = constraintList->data;
+		v = varList->data;
+		printf("(v: %d, c: %d), ", v->index, c->index); 
+		varList = varList->next;
+		constraintList = constraintList->next;
+	}
+	printf("\n");
+}
+*/
+
+
+int forwardCheckNew(Variable var, Problem p, Backup globalDB) {
+	printf("forwardCheckNew: add all arcs with variable X%d\n", var->index);
+	Queue constraintQueue = emptyQueue();
+	Queue variableQueue = emptyQueue();
+	Backup db = emptyBackup();
+	Constraint constraint;
+	Variable var2;
+	int consistent = 1;
+	
+	addVariableArcs(var, constraintQueue, variableQueue, p);
+	
+	while(!isEmptyQueue(constraintQueue)) {
+		constraint = dequeue(constraintQueue);
+		var2 = dequeue(variableQueue);		
+		printf("forwardCheckNew: check (var: %d, constraint: %d)\n", var2->index, constraint->index);
+		inArcsQueue[constraint->index][var->index] = 0;
+		Domain domainBackup = copyDomain(getVarDomain(var2));				/* retrieves contents of current connected variable */
+		varPos sequenceBackup = *(getVariableSeqPos(var2));				/* retrieves contents of VarPos of current connected variable */
+		if(arcReduce(var2, constraint, p)) {									/* domain of var is limited */
+			addBackup(var2->index, domainBackup, sequenceBackup, db);
+			if(variableInSequence(var2, p->varSequence)) {
+				resortVarSeq(p->varSequence, getVariableSeqPos(var2));
+			}
+			addLog("Domain limited of variable X%d.\n", var2->index);
+				
+			if(getDomainSize(getVarDomain(var2)) == 0) {
+				addLog("Failure for Forward Checking: domain of X%d became empty.\n", var2->index);
+				consistent = 0;
+				break;
+			} 
+			if(CP && (CPREASON == REDUCTION || singletonDomain(getVarDomain(var2)))) {
+				addVariableArcs(var2, constraintQueue, variableQueue, p);
+			}
+		} else {
+			freeDomain(domainBackup);
+		}
+	}
+	
+	freeQueue(constraintQueue);
+	freeQueue(variableQueue);
+	
+	if(consistent) {
+		if(db->last != NULL) {
+			addBackupToFront(db, globalDB);
+		} else {
+			freeBackup(db);
+		}
+		return 1;
+	}
+	restoreBackup(db, p);
+	return 0;
+}
+
+int forwardCheckOld(Variable var, Problem p, Backup globalDB) {
+	int *constraintIndices = getVarConstraintIndices(var);
+	int i;
+	
+	Constraint c;
+	int *varIndices;
+	Variable var2;
+	Backup db = emptyBackup();
+	for(i = 0; i < getVarConstraintCount(var); i++) {			/* foreach constraint c connected to var */
+		c = getConstraint(p, constraintIndices[i]);
+		varIndices = getConstraintVarIndices(c);
+		if(getConstraintVarCount(c) == 2) {
+			if(varIndices[0] == var->index) {
+				var2 = getVariable(p, varIndices[1]);
+			} else {
+				var2 = getVariable(p, varIndices[0]);
+			}
+			Domain backup = copyDomain(getVarDomain(var2));
+			varPos sequenceBackup = *(getVariableSeqPos(var2));	
+			if(arcReduce(var2, c, p)) {
+				addBackup(var2->index, backup, sequenceBackup, db);
+				if(variableInSequence(var2, p->varSequence)) {
+					resortVarSeq(p->varSequence, getVariableSeqPos(var2));
+				}
+				addLog("X%d: %d: Domain limited of variable X%d.\n", var->index, getDomainMinimum(var->domain), var2->index);
+				
+				if(getDomainSize(getVarDomain(var2)) == 0) {				
+					restoreBackup(db, p);
+					return 0;
+				} 
+				
+				if(CP && (CPREASON == REDUCTION || singletonDomain(getVarDomain(var2)))) {
+					addLog("Constraint Propagation because of reduced domain variable X%d\n", var2->index);
+					if(!forwardCheckOld(var2, p, db)) {
+						restoreBackup(db, p);
+						return 0;
+					}
+				}
+			} else {
+				freeDomain(backup);
+			}
+		}
+	}
+	if(db->last != NULL) {
+		addBackupToFront(db, globalDB);
+	} else {
+		freeBackup(db);
+	}
+	return 1;
+}
+
+void limitUnassignedConstraints(Variable v, Problem p) {		
+	int i, j;
+	Constraint c;
+	Variable var2;
+	int *constraintIndices = getVarConstraintIndices(v);
+	int *varIndices;
+	for(i = 0; i < getVarConstraintCount(v); i++) {
+		c = getConstraint(p, constraintIndices[i]);
+		lowerUnassignedVar(c);
+		varIndices = getConstraintVarIndices(c);
+		for(j = 0; j < getConstraintVarCount(c); j++) {
+			var2 = getVariable(p, varIndices[j]);
+			if(var2->index != v->index) {
+				lowerVarConstraintDegree(var2);
+				if(variableInSequence(var2, p->varSequence)) {
+					resortVarSeq(p->varSequence, var2->sequencePos);
+				}
+			}
+		}
+	}
+}
+
+void plusUnassignedConstraints(Variable v, Problem p) {	
+	int i, j;
+	Constraint c;
+	Variable var2;
+	int *constraintIndices = getVarConstraintIndices(v);
+	int *varIndices;
+	for(i = 0; i < getVarConstraintCount(v); i++) {
+		c = getConstraint(p, constraintIndices[i]);
+		plusUnassignedVar(c);
+		varIndices = getConstraintVarIndices(c);
+		for(j = 0; j < getConstraintVarCount(c); j++) {
+			var2 = getVariable(p, varIndices[j]);
+			if(var2->index != v->index) {
+				plusVarConstraintDegree(var2);
+				if(variableInSequence(var2, p->varSequence)) {
+			        resortVarSeq(p->varSequence, var2->sequencePos);
+				}
+			}
+		}
+	}
+}
+
+Variable selectUnassignedVar(Problem p) {
+	VarPos position = getFirstVarPosition(p->varSequence);
+	Variable v = getVarAtPosition(p->varSequence, position);
+	if (v != NULL) {
+	  limitUnassignedConstraints(v, p);
+	}
+	return v;
+}
+
+
+SolutionSet newSolutionSet(int varAmount, int solutionSpace) {
+	SolutionSet set = safeMalloc(sizeof(solutionSet));
+	set->first = NULL;
+	set->last = NULL;
+	set->solutionSpace = solutionSpace;
+	set->solutionCount = 0;
+	set->varAmount = varAmount;
+	return set;
+}
+
+void printSolution(int *solution, int varCount) {
+	int i;
+	
+	if(varCount == 81) {
+		for(i = 0; i < varCount; i++) {
+			printf("%d  ", solution[i]);
+			if((i+1) % 9 == 0) {
+				printf("\n\n");
+			}
+		}
+		printf("\n");
+		return;
+	}
+	
+	for(i = 0; i < varCount; i++) {
+		printf("X%d = %d;\n", i, solution[i]);
+	}
+}
+
+SolutionList newSolution(Problem p) {
+	int i;
+	SolutionList list = safeMalloc(sizeof(solutionList));
+	list->values = safeMalloc(p->varCount*sizeof(int));
+	for(i = 0; i < p->varCount; i++) {
+		list->values[i] = 
+		    getDomainMinimum(getVarDomain(getVariable(p, i)));
+	}
+	list->next = NULL;
+	return list;
+}
+
+void addSolution(SolutionSet solset, Problem p) {
+	if(solset->solutionCount == solset->solutionSpace) {
+		fprintf(stderr, "No more solutions can be added to this set\n");
+		exit(-1);
+	}
+	if(solset->solutionCount == 0) {
+		solset->first = newSolution(p);
+		solset->last = solset->first;
+	} else {
+		solset->last->next = newSolution(p);
+		solset->last = solset->last->next;
+	}
+	solset->solutionCount++;
+}
+
+void freeSolutionList(SolutionList list) {
+	if(list != NULL) {
+		freeSolutionList(list->next);
+		free(list->values);
+		free(list);
+	}
+}
+
+void freeSolutionSet(SolutionSet set) {
+	freeSolutionList(set->first);
+	free(set);
+}
+
+void resetVar(Problem p, Variable v, varPos pos, Domain dom, Backup b) {
+	freeBackup(b);
+	setVarDomain(v, dom);
+	restoreVarSeq(p->varSequence, pos);
+	plusUnassignedConstraints(v, p);
+}
+
+void recursiveBacktracking(Problem p, SolutionSet solset) {		
+	Variable var;
+	varPos sequencePos;
+	int *values, i;
+	Backup db;
+	Domain fullDomain;
+	
+	stateCount++;
+	if(p->varCount == p->assignCount) {
+		addSolution(solset, p);
+		return;
+	}
+	
+	var = selectUnassignedVar(p);
+	sequencePos = *(var->sequencePos);
+	values = getDomainValues(getVarDomain(var));
+	db = emptyBackup();
+	fullDomain = getVarDomain(var);
+	removeVarFromSequence(p->varSequence, var->sequencePos);
+	
+	for(i = 0; i < getDomainSize(fullDomain); i++) {
+		valueTrials++;
+		addLog("Trying value %d for variable X%d.\n", 
+			   values[i], var->index);
+		p->assignCount++;
+		setVarDomain(var, getSingletonDomain(values[i]));
+		if(checkLocalConsistency(var, p)) {
+			addLog("var X%d locally consistent with value %d\n", 
+			var->index, values[i]);
+			if(!FC || forwardCheckOld(var, p, db)) {
+				recursiveBacktracking(p, solset);	
+				if(FC) {
+					restoreBackup(db, p);
+					db = emptyBackup();	
+				}
+			}
+		}
+		freeDomain(getVarDomain(var));
+		p->assignCount--;
+		if(solset->solutionSpace == solset->solutionCount) {
+			resetVar(p, var, sequencePos, fullDomain, db);
+			return;
+		}
+	}
+	resetVar(p, var, sequencePos, fullDomain, db);
+}
+
+int checkConstantConstraints(Problem p) {
+	int i;
+	for(i = 0; i < p->constraintCount; i++) {
+		if(getConstraintVarCount(p->constraints[i]) == 0 && 
+		   !satisfiable(p->constraints[i], p)) {
+			addLog("constant constraint %d is not satisfiable:\n", i);
+			printConstraint(p->constraints[i]);
+			return 0;
+		}
+	}
+	return 1;
+}
+
+
+void solve(Problem p) {
+	int i;	
+	
+	removeFromSequence = 0;
+	insertInSequence = 0;
+	insertInBetween = 0;
+	resortSequence = 0;
+	restoreSequence = 0;
+	printSequence = 0;
+	
+	/* set right function pointers */
+	if(MRV) {
+		varOrdered = mrvOrdered;
+		if(DEGREE_HEURISTIC) {
+			varOrdered = mrvPlusDegreeOrdered;
+		}
+	} else {
+		varOrdered = skipTest;
+	}
+	
+	inArcsQueue = safeMalloc(p->constraintCount * sizeof(int *));
+	for(i = 0; i < p->constraintCount; i++) {
+		inArcsQueue[i] = safeCalloc(p->varCount, sizeof(int));
+	}
+	
+	SolutionSet solset = newSolutionSet(p->varCount, 
+			(p->solvespec.type == SOLVEALL ? -1 : p->solvespec.max));
+	SolutionList solution;	
+	p->varSequence = emptyVarSeq();
+	
+	addLog("\n####################################################\n");	
+	
+	if(checkConstantConstraints(p)) {
+		init(p);
+		
+		int i;
+		for(i = 0; i < p->varCount; i++) {
+			insertVarInSequence(p->varSequence, getVariable(p, i));
+			plusUnassignedConstraints(getVariable(p, i), p);
+		}
+		recursiveBacktracking(p, solset);
+	}
+	
+	solution = solset->first;
+	
+	i = 0;
+	while(solution != NULL) {
+		printf("\n########## SOLUTION #%d ##########\n", i+1);
+		printSolution(solution->values, p->varCount);
+		solution = solution->next;
+		i++;
+	}
+	
+	if(solset->solutionCount == 0) {
+		printf("\nNo solution could be found\n");
+	} else if(p->solvespec.type == SOLVEALL) {
+		printf("\nFound %d solution(s).\n", solset->solutionCount);
+	} else if(solset->solutionCount < p->solvespec.max) { 
+		/* p->solvespec.type == SOLVENR */
+		printf("\nNo more than %d solution(s) "
+		"could be found.\n", solset->solutionCount);
+	}
+	
+	addLog("\nstateCount: %ld\n", stateCount);	
+	
+	for(i = 0; i < p->constraintCount; i++) {
+		free(inArcsQueue[i]);
+	}
+	free(inArcsQueue);
+	
+	freeSolutionSet(solset);
+	
+	fprintf(logFile, "removeFromSequence: %d\n", removeFromSequence);
+	fprintf(logFile, "insertInSequence: %d\n", insertInSequence);
+	fprintf(logFile, "insertInBetween: %d\n", insertInBetween);
+	fprintf(logFile, "resortSequence: %d\n", resortSequence);
+	fprintf(logFile, "restoreSequence: %d\n", restoreSequence);
+	fprintf(logFile, "backtracking points: %ld\n", stateCount);
+	fprintf(logFile, "backtracking value trials: %ld\n", valueTrials);
+	fprintf(logFile, "domain limitations by node consistency: %ld\n", 
+					 unaryDomainLimits);
+	fprintf(logFile, "value limitations by node consistency: %ld\n", 
+					 unaryValueLimits);
+	fprintf(logFile, "domain limitations by arc consistency: %ld\n", 
+					 arcDomainLimits);
+	fprintf(logFile, "value limitations by arc consistency: %ld\n", 
+					 arcValueLimits);
+}

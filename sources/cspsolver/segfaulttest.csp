@@ -1,0 +1,15 @@
+variables:
+  p[10] : integer;
+
+domains:
+ p <- [2..30];
+
+constraints:
+  forall(i in [0..9])
+    forall(j in [i+1..9])         
+      p[i] < p[j];
+      p[j] mod p[i] <> 0;
+    end
+  end
+
+solutions:1

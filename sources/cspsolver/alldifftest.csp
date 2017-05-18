@@ -1,0 +1,13 @@
+variables:
+	a[4] : integer;
+	b[4] : integer;
+domains:
+	a <- [0..8];	
+	b <- [0..8];
+
+constraints:
+	alldiff(a[1,2], b[1,2]);
+	
+		
+
+solutions:1

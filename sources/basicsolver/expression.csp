@@ -1,0 +1,23 @@
+# CSP: sudoku
+variables:
+  X0, X1, X2, X3, X4, X5, X6, X7, X8 : integer;
+
+domains:
+  X0, X1, X2, X3, X4, X5, X6, X7, X8 <- [1..9];
+
+constraints:
+  X0 <> X1; X0 <> X2; X0 <> X3; X0 <> X4; X0 <> X5; X0 <> X6; X0 <> X7; X0 <> X8;
+  X1 <> X2; X1 <> X3; X1 <> X4; X1 <> X5; X1 <> X6; X1 <> X7; X1 <> X8;
+  X2 <> X3; X2 <> X4; X2 <> X5; X2 <> X6; X2 <> X7; X2 <> X8;
+  X3 <> X4; X3 <> X5; X3 <> X6; X3 <> X7; X3 <> X8;
+  X4 <> X5; X4 <> X6; X4 <> X7; X4 <> X8;
+  X5 <> X6; X5 <> X7; X5 <> X8;
+  X6 <> X7; X6 <> X8;
+  X7 <> X8;
+  
+  X0 + 13 * X1 div X2 + X3 + 12 * X4 - X5 - 11 + X6 * X7 div X8 - 10 = 66;
+  X1 mod X2 = 0;
+  X7 mod X8 = 0;
+  
+  solutions: all
+  

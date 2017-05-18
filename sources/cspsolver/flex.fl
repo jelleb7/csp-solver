@@ -1,0 +1,131 @@
+%option noyywrap
+
+%{
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "grammar.h"
+
+int lineNr = 1;
+static int lastNewLine = 0;
+static int chars = 0;
+static int col = 0;
+
+static int getLength (int number){
+  int i=1;
+ 	while(number>9){
+ 		i++;
+ 		number/=10;
+ 	}
+ 	return i;
+}
+
+static void newLine() {
+ 	lineNr++;
+ 	lastNewLine = chars+1;
+ 	col = 0;
+}
+
+static void column(int plus) {
+ 	col += plus;
+ 	chars += plus;
+}
+
+static int acceptToken(int token) {
+  column(yyleng);
+  return token;
+}
+
+static void printError(){
+	fprintf(stderr, "\nError in line %d: ", lineNr);
+	fseek(yyin, lastNewLine, SEEK_SET);
+	int i = 1;
+	char line[200];
+	fprintf(stderr, "%s", fgets(line, 200, yyin));
+	for(i=0; i<col+(15)+getLength(lineNr); i++){
+		fprintf(stderr,  " ");
+	}
+	fprintf(stderr, "^\n");
+	fprintf(stderr, "Illegal character (%s) detected at column %d.\n", yytext, col+1);
+	exit(-1);
+}
+
+%}
+
+
+WS 		      [ \t\v\f]+
+STRING	    '([^']*)'
+DEC			    [0-9]+
+LETTER	    [a-zA-Z]
+IDENTIFIER  [a-zA-Z_][a-zA-Z0-9_]*     
+
+
+%%
+
+"#"[^\n]*     { column(yyleng); }
+
+\n		        { column(yyleng); newLine(); }
+
+"variables"	  { return acceptToken(VARSTOK); }
+"in"          { return acceptToken(INTOK); }
+"end"          { return acceptToken(ENDTOK); }
+"integer"		  { return acceptToken(INTTYPE); }
+"boolean"		  { return acceptToken(BOOLTYPE); }
+"domains"		  { return acceptToken(DOMAINSTOK); }
+"forall"		  { return acceptToken(FORALLTOK); }
+"alldiff"		  { return acceptToken(ALLDIFFTOK); }
+"equal"		  { return acceptToken(EQUALTOK); }
+"increasing"		  { return acceptToken(INCREASINGTOK); }
+"decreasing"		  { return acceptToken(DECREASINGTOK); }
+"sum"		  { return acceptToken(SUMTOK); }
+"product"		  { return acceptToken(PRODUCTTOK); }
+"maximum"		  { return acceptToken(MAXIMUMTOK); }
+"minimum"		  { return acceptToken(MINIMUMTOK); }
+"constraints"	{ return acceptToken(CONSTRAINTSTOK); }
+"solutions"		{ return acceptToken(SOLVETOK); }
+".."			    { return acceptToken(RANGETOK); }
+
+"["				    { return acceptToken(BRACKOPEN); }
+"]"				    { return acceptToken(BRACKCLOSE); }
+"-"			  	  { return acceptToken(MINUSTOK); }
+"+"			  	  { return acceptToken(PLUSTOK); }
+"*"			    	{ return acceptToken(STARTOK); }
+"^"			    	{ return acceptToken(POWTOK); }
+","			  	  { return acceptToken(COMMATOK); }
+";"			  	  { return acceptToken(SEMITOK); }
+":"			    	{ return acceptToken(COLONTOK); }
+"="				    { return acceptToken(ISTOK); }
+"<"				    { return acceptToken(SMALLERTOK); }
+">"				    { return acceptToken(GREATERTOK); }
+"<>"			    { return acceptToken(NEQTOK); }
+"<="		    	{ return acceptToken(LEQTOK); }
+">="			    { return acceptToken(GEQTOK); }
+"mod"		  	  { return acceptToken(MODTOK); }
+"div"		   	  { return acceptToken(DIVTOK); }
+"abs"			    { return acceptToken(ABSTOK); }
+"max"		  	  { return acceptToken(MAXTOK); }
+"min"			    { return acceptToken(MINTOK); }
+"any"			    { return acceptToken(ANYTOK); }
+"all"			    { return acceptToken(ALLTOK); }
+"("			  	  { return acceptToken(PARENTOPEN); }
+")"			  	  { return acceptToken(PARENTCLOSE); }
+"<-"			    { return acceptToken(ARROWTOK); }
+
+{IDENTIFIER}  { return acceptToken(VARNAME); }
+{DEC} 	   	  { return acceptToken(DECTOK); }
+{WS} 		   	  { column(yyleng); }
+
+. 			   	  { printError(); }
+%%
+
+/*
+int main(int argc, char** argv) {
+  if(argc == 2) {
+    yyin = fopen(argv[1], "r");
+  }
+  yylex();
+  if(argc == 2) {
+    fclose(yyin);
+  }
+  return 0;
+}*/

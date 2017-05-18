@@ -1,0 +1,50 @@
+variables:
+	sudoku[9][9], A : integer;
+
+domains:
+	forall (i in [0..8])
+		sudoku[i] <- [1..9];
+	end
+	A <- [1..10];
+constraints:
+
+	A = 5;
+	forall (i in [0..8])
+		alldiff(sudoku[i][0..8]);
+		alldiff(sudoku[0..8][i]);
+		alldiff(sudoku[(i div 3)*3..(i div 3)*3+2][(i mod 3)*3..(i mod 3)*3+2]);
+	end
+	
+	sudoku[0][1] = 8;
+	sudoku[0][5] = 6;
+	sudoku[0][8] = 3;
+	
+	sudoku[1][1] = 6;
+	sudoku[1][4] = 7;
+	sudoku[1][6] = 2;
+	
+	sudoku[2][2] = 4;
+	sudoku[2][4] = 1;
+	sudoku[2][7] = 9;
+	
+	sudoku[3][1] = 5;
+	sudoku[3][6] = 8;
+	sudoku[3][8] = 1;
+	
+	sudoku[5][1] = 1;
+	sudoku[5][2] = 3;
+	sudoku[5][7] = 6;
+	
+	sudoku[6][2] = 5;
+	sudoku[6][5] = 9;
+	sudoku[6][8] = 8;
+	
+	sudoku[7][4] = 2;
+	
+	sudoku[8][2] = 6;
+	sudoku[8][3] = 7;
+	sudoku[8][6] = 3;
+	sudoku[8][8] = 2;
+
+solutions:1
+

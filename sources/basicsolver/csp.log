@@ -1,0 +1,19 @@
+Accepted
+
+####################################################
+
+# Before init: 50 possible values and 1 * 10^5 combinations
+# Applying substitution for single-value domains 	  and checking applicable constraints:
+# After init: 5 possible values and 1 * 1^5 combinations
+# After init: domains
+X0: [2]
+X1: [3]
+X2: [5]
+X3: [7]
+X4: [11]
+Trying value 11 for variable X4.
+Trying value 7 for variable X3.
+Trying value 5 for variable X2.
+Trying value 3 for variable X1.
+Trying value 2 for variable X0.
+backtracking points: 6

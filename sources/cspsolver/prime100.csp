@@ -1,0 +1,20 @@
+variables:
+  p[100] : integer;
+
+domains:
+ p <- [2..541];
+
+constraints:
+  forall(i in [0..98])
+    p[i] < p[i+1];
+  end
+  forall(i in [0..99])
+    forall(j in [i+1..99])
+      p[j] mod p[i] <> 0;
+    end
+    forall(j in [2..541]) 
+      any(j >= p[i], p[i] mod j <> 0);
+    end
+  end
+
+solutions:1

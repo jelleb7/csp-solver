@@ -1,0 +1,73 @@
+variables:
+X0, X1, X2, X3, X4 : integer;
+
+domains:
+X0, X1, X2, X3, X4 <- [2..11];
+
+constraints:
+X0 < X1;
+X1 < X2;
+X2 < X3;
+X3 < X4;
+X1 mod X0 <> 0;
+X2 mod X0 <> 0;
+X3 mod X0 <> 0;
+X4 mod X0 <> 0;
+any(2 >= X0, X0 mod 2 <> 0);
+any(3 >= X0, X0 mod 3 <> 0);
+any(4 >= X0, X0 mod 4 <> 0);
+any(5 >= X0, X0 mod 5 <> 0);
+any(6 >= X0, X0 mod 6 <> 0);
+any(7 >= X0, X0 mod 7 <> 0);
+any(8 >= X0, X0 mod 8 <> 0);
+any(9 >= X0, X0 mod 9 <> 0);
+any(10 >= X0, X0 mod 10 <> 0);
+any(11 >= X0, X0 mod 11 <> 0);
+X2 mod X1 <> 0;
+X3 mod X1 <> 0;
+X4 mod X1 <> 0;
+any(2 >= X1, X1 mod 2 <> 0);
+any(3 >= X1, X1 mod 3 <> 0);
+any(4 >= X1, X1 mod 4 <> 0);
+any(5 >= X1, X1 mod 5 <> 0);
+any(6 >= X1, X1 mod 6 <> 0);
+any(7 >= X1, X1 mod 7 <> 0);
+any(8 >= X1, X1 mod 8 <> 0);
+any(9 >= X1, X1 mod 9 <> 0);
+any(10 >= X1, X1 mod 10 <> 0);
+any(11 >= X1, X1 mod 11 <> 0);
+X3 mod X2 <> 0;
+X4 mod X2 <> 0;
+any(2 >= X2, X2 mod 2 <> 0);
+any(3 >= X2, X2 mod 3 <> 0);
+any(4 >= X2, X2 mod 4 <> 0);
+any(5 >= X2, X2 mod 5 <> 0);
+any(6 >= X2, X2 mod 6 <> 0);
+any(7 >= X2, X2 mod 7 <> 0);
+any(8 >= X2, X2 mod 8 <> 0);
+any(9 >= X2, X2 mod 9 <> 0);
+any(10 >= X2, X2 mod 10 <> 0);
+any(11 >= X2, X2 mod 11 <> 0);
+X4 mod X3 <> 0;
+any(2 >= X3, X3 mod 2 <> 0);
+any(3 >= X3, X3 mod 3 <> 0);
+any(4 >= X3, X3 mod 4 <> 0);
+any(5 >= X3, X3 mod 5 <> 0);
+any(6 >= X3, X3 mod 6 <> 0);
+any(7 >= X3, X3 mod 7 <> 0);
+any(8 >= X3, X3 mod 8 <> 0);
+any(9 >= X3, X3 mod 9 <> 0);
+any(10 >= X3, X3 mod 10 <> 0);
+any(11 >= X3, X3 mod 11 <> 0);
+any(2 >= X4, X4 mod 2 <> 0);
+any(3 >= X4, X4 mod 3 <> 0);
+any(4 >= X4, X4 mod 4 <> 0);
+any(5 >= X4, X4 mod 5 <> 0);
+any(6 >= X4, X4 mod 6 <> 0);
+any(7 >= X4, X4 mod 7 <> 0);
+any(8 >= X4, X4 mod 8 <> 0);
+any(9 >= X4, X4 mod 9 <> 0);
+any(10 >= X4, X4 mod 10 <> 0);
+any(11 >= X4, X4 mod 11 <> 0);
+
+solutions:1

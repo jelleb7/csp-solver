@@ -1,0 +1,48 @@
+variables:
+	sud[9][9] : integer;
+
+domains:
+	forall (i in [0..8])
+		sud[i] <- [1..9];
+	end
+constraints:
+
+	forall (i in [0..8])
+		alldiff(sud[i][0..8]);
+		alldiff(sud[0..8][i]);
+		alldiff(sud[(i div 3)*3..(i div 3)*3+2][(i mod 3)*3..(i mod 3)*3+2]);
+	end
+	
+	sud[0][1] = 8;
+	sud[0][5] = 6;
+	sud[0][8] = 3;
+	
+	sud[1][1] = 6;
+	sud[1][4] = 7;
+	sud[1][6] = 2;
+	
+	sud[2][2] = 4;
+	sud[2][4] = 1;
+	sud[2][7] = 9;
+	
+	sud[3][1] = 5;
+	sud[3][6] = 8;
+	sud[3][8] = 1;
+	
+	sud[5][1] = 1;
+	sud[5][2] = 3;
+	sud[5][7] = 6;
+	
+	sud[6][2] = 5;
+	sud[6][5] = 9;
+	sud[6][8] = 8;
+	
+	sud[7][4] = 2;
+	
+	sud[8][2] = 6;
+	sud[8][3] = 7;
+	sud[8][6] = 3;
+	sud[8][8] = 2;
+
+solutions:1
+

@@ -1,0 +1,19 @@
+variables:
+	chessboard[4] : integer;
+
+domains:
+	forall (i in [0..3])
+		chessboard[i] <- [0..3];
+	end
+
+constraints:
+	alldiff(chessboard[1..8]);
+
+	forall(i in [0..3])
+		forall(j in [i+1..3])         
+			abs(chessboard[i]-chessboard[j]) <> abs(i-j);
+		end
+	end
+
+solutions:1
+

@@ -1,0 +1,15 @@
+variables:
+	a : integer;
+	b[3][3] : integer;
+domains:
+	a <- [0..2];	
+	b[0,1][0,1,2] <- [0..1];	
+	b[2][0,1] <- [0..1];
+
+constraints:
+	a > -1;
+	a < 1;
+	
+
+solutions:1
+

@@ -1,0 +1,129 @@
+Accepted
+
+####################################################
+
+# Before init: 6880 possible values and 1 * 172^40 combinations
+# Applying substitution for single-value domains 	  and checking applicable constraints:
+# After init: 40 possible values and 1 * 1^40 combinations
+# After init: domains
+X0: [2]
+X1: [3]
+X2: [5]
+X3: [7]
+X4: [11]
+X5: [13]
+X6: [17]
+X7: [19]
+X8: [23]
+X9: [29]
+X10: [31]
+X11: [37]
+X12: [41]
+X13: [43]
+X14: [47]
+X15: [53]
+X16: [59]
+X17: [61]
+X18: [67]
+X19: [71]
+X20: [73]
+X21: [79]
+X22: [83]
+X23: [89]
+X24: [97]
+X25: [101]
+X26: [103]
+X27: [107]
+X28: [109]
+X29: [113]
+X30: [127]
+X31: [131]
+X32: [137]
+X33: [139]
+X34: [149]
+X35: [151]
+X36: [157]
+X37: [163]
+X38: [167]
+X39: [173]
+Trying value 173 for variable X39.
+forward checking based on assignment of variable X39
+Trying value 167 for variable X38.
+forward checking based on assignment of variable X38
+Trying value 163 for variable X37.
+forward checking based on assignment of variable X37
+Trying value 157 for variable X36.
+forward checking based on assignment of variable X36
+Trying value 151 for variable X35.
+forward checking based on assignment of variable X35
+Trying value 149 for variable X34.
+forward checking based on assignment of variable X34
+Trying value 139 for variable X33.
+forward checking based on assignment of variable X33
+Trying value 137 for variable X32.
+forward checking based on assignment of variable X32
+Trying value 131 for variable X31.
+forward checking based on assignment of variable X31
+Trying value 127 for variable X30.
+forward checking based on assignment of variable X30
+Trying value 113 for variable X29.
+forward checking based on assignment of variable X29
+Trying value 109 for variable X28.
+forward checking based on assignment of variable X28
+Trying value 107 for variable X27.
+forward checking based on assignment of variable X27
+Trying value 103 for variable X26.
+forward checking based on assignment of variable X26
+Trying value 101 for variable X25.
+forward checking based on assignment of variable X25
+Trying value 97 for variable X24.
+forward checking based on assignment of variable X24
+Trying value 89 for variable X23.
+forward checking based on assignment of variable X23
+Trying value 83 for variable X22.
+forward checking based on assignment of variable X22
+Trying value 79 for variable X21.
+forward checking based on assignment of variable X21
+Trying value 73 for variable X20.
+forward checking based on assignment of variable X20
+Trying value 71 for variable X19.
+forward checking based on assignment of variable X19
+Trying value 67 for variable X18.
+forward checking based on assignment of variable X18
+Trying value 61 for variable X17.
+forward checking based on assignment of variable X17
+Trying value 59 for variable X16.
+forward checking based on assignment of variable X16
+Trying value 53 for variable X15.
+forward checking based on assignment of variable X15
+Trying value 47 for variable X14.
+forward checking based on assignment of variable X14
+Trying value 43 for variable X13.
+forward checking based on assignment of variable X13
+Trying value 41 for variable X12.
+forward checking based on assignment of variable X12
+Trying value 37 for variable X11.
+forward checking based on assignment of variable X11
+Trying value 31 for variable X10.
+forward checking based on assignment of variable X10
+Trying value 29 for variable X9.
+forward checking based on assignment of variable X9
+Trying value 23 for variable X8.
+forward checking based on assignment of variable X8
+Trying value 19 for variable X7.
+forward checking based on assignment of variable X7
+Trying value 17 for variable X6.
+forward checking based on assignment of variable X6
+Trying value 13 for variable X5.
+forward checking based on assignment of variable X5
+Trying value 11 for variable X4.
+forward checking based on assignment of variable X4
+Trying value 7 for variable X3.
+forward checking based on assignment of variable X3
+Trying value 5 for variable X2.
+forward checking based on assignment of variable X2
+Trying value 3 for variable X1.
+forward checking based on assignment of variable X1
+Trying value 2 for variable X0.
+forward checking based on assignment of variable X0
+backtracking points: 41

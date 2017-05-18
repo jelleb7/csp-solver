@@ -1,0 +1,14 @@
+variables:
+	A : integer;
+	B : integer;
+	C : integer;
+	
+domains:
+	A,B,C <- [0..1000];
+
+constraints:
+	A + B = 5*C;
+	B + C = 3*A;
+	A * B * C = 42;
+	
+solutions: 1

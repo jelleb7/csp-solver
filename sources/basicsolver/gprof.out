@@ -1,0 +1,947 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 19.36      0.06     0.06   159938     0.00     0.00  limitUnassignedConstraints
+ 14.52      0.11     0.05  9099840     0.00     0.00  calcFactor
+  9.68      0.14     0.03 24512805     0.00     0.00  getVariable
+  9.68      0.17     0.03   160019     0.00     0.00  plusUnassignedConstraints
+  6.45      0.19     0.02  9099840     0.00     0.00  calcExp
+  6.45      0.21     0.02  3840456     0.00     0.00  plusUnassignedVar
+  6.45      0.23     0.02                             mrvOrdered
+  4.84      0.24     0.02 23126046     0.00     0.00  getConstraintVarCount
+  4.84      0.26     0.02  9099840     0.00     0.00  calcTerm
+  3.23      0.27     0.01  7881171     0.00     0.00  getIntegerSetValues
+  3.23      0.28     0.01  7678968     0.00     0.00  variableInSequence
+  3.23      0.29     0.01   549460     0.00     0.00  emptyIntegerSet
+  3.23      0.30     0.01                             addBackupToFront
+  3.23      0.31     0.01                             insertVariableBetween
+  1.61      0.31     0.01                             printConstraintList
+  0.00      0.31     0.00 23126046     0.00     0.00  setSize
+  0.00      0.31     0.00 15115196     0.00     0.00  getVarConstraintCount
+  0.00      0.31     0.00 14635004     0.00     0.00  getConstraint
+  0.00      0.31     0.00 10017120     0.00     0.00  getVarDomain
+  0.00      0.31     0.00  9099696     0.00     0.00  getDomainMinimum
+  0.00      0.31     0.00  9099696     0.00     0.00  getSetMinimum
+  0.00      0.31     0.00  7709817     0.00     0.00  getConstraintVarIndices
+  0.00      0.31     0.00  6948908     0.00     0.00  determinable
+  0.00      0.31     0.00  6069871     0.00     0.00  mcvOrdered
+  0.00      0.31     0.00  4549920     0.00     0.00  checkConstraint
+  0.00      0.31     0.00  3840456     0.00     0.00  plusVarConstraintDegree
+  0.00      0.31     0.00  3838512     0.00     0.00  lowerUnassignedVar
+  0.00      0.31     0.00  3838512     0.00     0.00  lowerVarConstraintDegree
+  0.00      0.31     0.00  2470529     0.00     0.00  resortVariableSequence
+  0.00      0.31     0.00   847591     0.00     0.00  getVarConstraintIndices
+  0.00      0.31     0.00   719727     0.00     0.00  setVarDomain
+  0.00      0.31     0.00   716711     0.00     0.00  safeMalloc
+  0.00      0.31     0.00   711653     0.00     0.00  getDomainSize
+  0.00      0.31     0.00   552230     0.00     0.00  addIntegerToSet
+  0.00      0.31     0.00   549541     0.00     0.00  freeIntegerSet
+  0.00      0.31     0.00   548382     0.00     0.00  freeDomain
+  0.00      0.31     0.00   548292     0.00     0.00  getSingletonDomain
+  0.00      0.31     0.00   171354     0.00     0.00  getDomainValues
+  0.00      0.31     0.00   159938     0.00     0.00  emptyBackup
+  0.00      0.31     0.00   159938     0.00     0.00  freeBackup
+  0.00      0.31     0.00   159938     0.00     0.00  getFirstVariablePosition
+  0.00      0.31     0.00   159938     0.00     0.00  getVariableAtPosition
+  0.00      0.31     0.00   159938     0.00     0.00  removeVarFromSequence
+  0.00      0.31     0.00   159938     0.00     0.00  restoreVariableSequence
+  0.00      0.31     0.00    37194     0.00     0.00  singletonDomain
+  0.00      0.31     0.00    11229     0.00     0.00  satisfiable
+  0.00      0.31     0.00     6509     0.00     0.00  yylex
+  0.00      0.31     0.00     5828     0.00     0.00  dequeue
+  0.00      0.31     0.00     5828     0.00     0.00  enqueue
+  0.00      0.31     0.00     2915     0.00     0.00  isEmptyQueue
+  0.00      0.31     0.00     2914     0.00     0.00  arcReduce
+  0.00      0.31     0.00     2121     0.00     0.00  LL11_var
+  0.00      0.31     0.00     1994     0.00     0.00  LL16_numExp
+  0.00      0.31     0.00     1994     0.00     0.00  LL17_term
+  0.00      0.31     0.00     1994     0.00     0.00  LL18_factor
+  0.00      0.31     0.00     1994     0.00     0.00  freeFactor
+  0.00      0.31     0.00     1994     0.00     0.00  freeNumExpression
+  0.00      0.31     0.00     1994     0.00     0.00  freeTerm
+  0.00      0.31     0.00     1994     0.00     0.00  getConstraintIndex
+  0.00      0.31     0.00     1994     0.00     0.00  getConstraintSecondExp
+  0.00      0.31     0.00     1994     0.00     0.00  newNumExpression
+  0.00      0.31     0.00     1994     0.00     0.00  newTerm
+  0.00      0.31     0.00     1994     0.00     0.00  newValueFactor
+  0.00      0.31     0.00     1994     0.00     0.00  setNumExpConstraints
+  0.00      0.31     0.00     1994     0.00     0.00  setTermConstraints
+  0.00      0.31     0.00     1994     0.00     0.00  setValueConstraints
+  0.00      0.31     0.00     1969     0.00     0.00  addConstraintToVariable
+  0.00      0.31     0.00     1969     0.00     0.00  addVariableToConstraint
+  0.00      0.31     0.00     1969     0.00     0.00  getVariableIndex
+  0.00      0.31     0.00     1969     0.00     0.00  newVarVal
+  0.00      0.31     0.00     1160     0.00     0.00  safeCalloc
+  0.00      0.31     0.00      997     0.00     0.00  LL15_constraint
+  0.00      0.31     0.00      997     0.00     0.00  addConstraint
+  0.00      0.31     0.00      997     0.00     0.00  freeConstraint
+  0.00      0.31     0.00      997     0.00     0.00  getConstraintFirstExp
+  0.00      0.31     0.00      997     0.00     0.00  newValConstraint
+  0.00      0.31     0.00      997     0.00     0.00  setConstraintExp2
+  0.00      0.31     0.00      997     0.00     0.00  setConstraintIndex
+  0.00      0.31     0.00      997     0.00     0.00  setConstraintOperator
+  0.00      0.31     0.00      497     0.00     0.00  removeNthIntegerFromSet
+  0.00      0.31     0.00      497     0.00     0.00  removeNthValueFromDomain
+  0.00      0.31     0.00      395     0.00     0.00  addLog
+  0.00      0.31     0.00      297     0.00     0.00  addVariableArcs
+  0.00      0.31     0.00      152     0.00     0.00  addVariable
+  0.00      0.31     0.00       81     0.00     0.00  copyDomain
+  0.00      0.31     0.00       81     0.00     0.00  copyIntegerSet
+  0.00      0.31     0.00       81     0.00     0.00  freeVariable
+  0.00      0.31     0.00       81     0.00     0.00  insertVarInSequence
+  0.00      0.31     0.00       81     0.00     0.00  newVariable
+  0.00      0.31     0.00       81     0.00     0.00  printDomain
+  0.00      0.31     0.00       25     0.00     0.00  newIntVal
+  0.00      0.31     0.00       25     0.00     0.00  nodeReduce
+  0.00      0.31     0.00       25     0.00     0.00  removeConstraintFromVariable
+  0.00      0.31     0.00       25     0.00     0.00  removeIntegerFromSet
+  0.00      0.31     0.00       10     0.00     0.00  LL13_varlist
+  0.00      0.31     0.00       10     0.00     0.00  freeVarList
+  0.00      0.31     0.00       10     0.00     0.00  newVarList
+  0.00      0.31     0.00        9     0.00     0.00  LL6_subdomain
+  0.00      0.31     0.00        9     0.00     0.00  addSequenceToDomain
+  0.00      0.31     0.00        9     0.00     0.00  addSequenceToSet
+  0.00      0.31     0.00        9     0.00     0.00  emptyDomain
+  0.00      0.31     0.00        9     0.00     0.00  setVariableDomains
+  0.00      0.31     0.00        2     0.00     0.00  emptyQueue
+  0.00      0.31     0.00        2     0.00     0.00  freeQueue
+  0.00      0.31     0.00        2     0.00     0.00  yy_get_previous_state
+  0.00      0.31     0.00        1     0.00     0.00  addSolution
+  0.00      0.31     0.00        1     0.00     0.00  addVariables
+  0.00      0.31     0.00        1     0.00     0.00  emptyProblem
+  0.00      0.31     0.00        1     0.00     0.00  emptyVariableSequence
+  0.00      0.31     0.00        1     0.00     0.00  freeConstraintList
+  0.00      0.31     0.00        1     0.00     0.00  freeProblem
+  0.00      0.31     0.00        1     0.00     0.00  freeSolutionList
+  0.00      0.31     0.00        1     0.00     0.00  freeVariableSequence
+  0.00      0.31     0.00        1     0.00     0.00  freeVariableSequenceRec
+  0.00      0.31     0.00        1     0.00     0.80  makeArcConsistent
+  0.00      0.31     0.00        1     0.00     0.01  makeNodeConsistent
+  0.00      0.31     0.00        1     0.00     0.03  parser
+  0.00      0.31     0.00        1     0.00   264.16  recursiveBacktracking
+  0.00      0.31     0.00        1     0.00     0.00  setProblemConstraints
+  0.00      0.31     0.00        1     0.00     0.00  setProblemVariables
+  0.00      0.31     0.00        1     0.00     0.01  setVarConstraints
+  0.00      0.31     0.00        1     0.00   265.00  solve
+  0.00      0.31     0.00        1     0.00     0.00  yy_create_buffer
+  0.00      0.31     0.00        1     0.00     0.00  yyensure_buffer_stack
+  0.00      0.31     0.00        1     0.00     0.00  yyrestart
+
+			Call graph
+
+
+granularity: each sample hit covers 2 byte(s) for 3.23% of 0.31 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     85.5    0.00    0.27                 timedMain [1]
+                0.00    0.27       1/1           solve [2]
+                0.00    0.00       1/1           parser [24]
+                0.00    0.00       1/395         addLog [95]
+                0.00    0.00       1/1           freeProblem [119]
+-----------------------------------------------
+                0.00    0.27       1/1           timedMain [1]
+[2]     85.5    0.00    0.27       1         solve [2]
+                0.00    0.26       1/1           recursiveBacktracking [3]
+                0.00    0.00       1/1           makeArcConsistent [21]
+                0.00    0.00      82/160019      plusUnassignedConstraints [6]
+                0.00    0.00     997/23126046     getConstraintVarCount [13]
+                0.00    0.00     405/24512805     getVariable [8]
+                0.00    0.00     997/1160        safeCalloc [86]
+                0.00    0.00     997/23126046     setSize [35]
+                0.00    0.00     243/10017120     getVarDomain [38]
+                0.00    0.00     162/711653      getDomainSize [51]
+                0.00    0.00      81/395         addLog [95]
+                0.00    0.00      81/81          printDomain [101]
+                0.00    0.00      81/81          insertVarInSequence [100]
+                0.00    0.00       2/716711      safeMalloc [50]
+                0.00    0.00       1/1           emptyVariableSequence [117]
+                0.00    0.00       1/2           freeQueue [113]
+                0.00    0.00       1/1           freeSolutionList [120]
+-----------------------------------------------
+                              159938             recursiveBacktracking [3]
+                0.00    0.26       1/1           solve [2]
+[3]     85.2    0.00    0.26       1+159938  recursiveBacktracking [3]
+                0.00    0.09 4537442/4549920     checkConstraint [4]
+                0.06    0.03  159938/159938      limitUnassignedConstraints [5]
+                0.03    0.05  159937/160019      plusUnassignedConstraints [6]
+                0.00    0.01  527337/548292      getSingletonDomain [19]
+                0.00    0.00  159938/7881171     getIntegerSetValues [14]
+                0.00    0.00       1/1           addSolution [34]
+                0.00    0.00 7108846/15115196     getVarConstraintCount [36]
+                0.00    0.00 6948908/6948908     determinable [42]
+                0.00    0.00 6948908/14635004     getConstraint [37]
+                0.00    0.00  847213/10017120     getVarDomain [38]
+                0.00    0.00  687275/711653      getDomainSize [51]
+                0.00    0.00  687275/719727      setVarDomain [49]
+                0.00    0.00  527337/847591      getVarConstraintIndices [48]
+                0.00    0.00  527337/548382      freeDomain [54]
+                0.00    0.00  159938/159938      getFirstVariablePosition [58]
+                0.00    0.00  159938/159938      getVariableAtPosition [59]
+                0.00    0.00  159938/159938      removeVarFromSequence [60]
+                0.00    0.00  159938/171354      getDomainValues [55]
+                0.00    0.00  159938/159938      emptyBackup [56]
+                0.00    0.00  159938/159938      restoreVariableSequence [61]
+                0.00    0.00  159938/159938      freeBackup [57]
+                              159938             recursiveBacktracking [3]
+-----------------------------------------------
+                0.00    0.00     225/4549920     nodeReduce [29]
+                0.00    0.00    2752/4549920     arcReduce [22]
+                0.00    0.00    9501/4549920     satisfiable [23]
+                0.00    0.09 4537442/4549920     recursiveBacktracking [3]
+[4]     29.4    0.00    0.09 4549920         checkConstraint [4]
+                0.05    0.01 9099840/9099840     calcFactor [7]
+                0.02    0.00 9099840/9099840     calcExp [9]
+                0.02    0.00 9099840/9099840     calcTerm [12]
+-----------------------------------------------
+                0.06    0.03  159938/159938      recursiveBacktracking [3]
+[5]     28.0    0.06    0.03  159938         limitUnassignedConstraints [5]
+                0.01    0.00 7677024/24512805     getVariable [8]
+                0.01    0.00 11515536/23126046     getConstraintVarCount [13]
+                0.00    0.00 3838512/7678968     variableInSequence [15]
+                0.00    0.00 3838512/7881171     getIntegerSetValues [14]
+                0.00    0.00 11515536/23126046     setSize [35]
+                0.00    0.00 3998450/15115196     getVarConstraintCount [36]
+                0.00    0.00 3838512/14635004     getConstraint [37]
+                0.00    0.00 3838512/7709817     getConstraintVarIndices [41]
+                0.00    0.00 3838512/3838512     lowerUnassignedVar [45]
+                0.00    0.00 3838512/3838512     lowerVarConstraintDegree [46]
+                0.00    0.00 1234738/2470529     resortVariableSequence [47]
+                0.00    0.00  159938/847591      getVarConstraintIndices [48]
+-----------------------------------------------
+                0.00    0.00      82/160019      solve [2]
+                0.03    0.05  159937/160019      recursiveBacktracking [3]
+[6]     24.8    0.03    0.05  160019         plusUnassignedConstraints [6]
+                0.02    0.00 3840456/3840456     plusUnassignedVar [10]
+                0.01    0.00 7680912/24512805     getVariable [8]
+                0.01    0.00 11521368/23126046     getConstraintVarCount [13]
+                0.01    0.00 3840456/7678968     variableInSequence [15]
+                0.00    0.00 3840456/7881171     getIntegerSetValues [14]
+                0.00    0.00 11521368/23126046     setSize [35]
+                0.00    0.00 4000475/15115196     getVarConstraintCount [36]
+                0.00    0.00 3840456/14635004     getConstraint [37]
+                0.00    0.00 3840456/7709817     getConstraintVarIndices [41]
+                0.00    0.00 3840456/3840456     plusVarConstraintDegree [44]
+                0.00    0.00 1235710/2470529     resortVariableSequence [47]
+                0.00    0.00  160019/847591      getVarConstraintIndices [48]
+-----------------------------------------------
+                0.05    0.01 9099840/9099840     checkConstraint [4]
+[7]     18.1    0.05    0.01 9099840         calcFactor [7]
+                0.01    0.00 9099615/24512805     getVariable [8]
+                0.00    0.00 9099615/9099696     getSetMinimum [40]
+                0.00    0.00 9099615/9099696     getDomainMinimum [39]
+                0.00    0.00 9099615/10017120     getVarDomain [38]
+-----------------------------------------------
+                0.00    0.00      25/24512805     makeNodeConsistent [28]
+                0.00    0.00      81/24512805     addSolution [34]
+                0.00    0.00     405/24512805     solve [2]
+                0.00    0.00    1944/24512805     makeArcConsistent [21]
+                0.00    0.00    7128/24512805     addVariableArcs [25]
+                0.00    0.00   45671/24512805     satisfiable [23]
+                0.01    0.00 7677024/24512805     limitUnassignedConstraints [5]
+                0.01    0.00 7680912/24512805     plusUnassignedConstraints [6]
+                0.01    0.00 9099615/24512805     calcFactor [7]
+[8]      9.7    0.03    0.00 24512805         getVariable [8]
+-----------------------------------------------
+                0.02    0.00 9099840/9099840     checkConstraint [4]
+[9]      6.5    0.02    0.00 9099840         calcExp [9]
+-----------------------------------------------
+                0.02    0.00 3840456/3840456     plusUnassignedConstraints [6]
+[10]     6.5    0.02    0.00 3840456         plusUnassignedVar [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]     6.5    0.02    0.00                 mrvOrdered [11]
+-----------------------------------------------
+                0.02    0.00 9099840/9099840     checkConstraint [4]
+[12]     4.8    0.02    0.00 9099840         calcTerm [12]
+-----------------------------------------------
+                0.00    0.00      25/23126046     nodeReduce [29]
+                0.00    0.00     997/23126046     makeNodeConsistent [28]
+                0.00    0.00     997/23126046     makeArcConsistent [21]
+                0.00    0.00     997/23126046     solve [2]
+                0.00    0.00    2914/23126046     arcReduce [22]
+                0.00    0.00    5907/23126046     setVarConstraints [30]
+                0.00    0.00    7128/23126046     addVariableArcs [25]
+                0.00    0.00   70177/23126046     satisfiable [23]
+                0.01    0.00 11515536/23126046     limitUnassignedConstraints [5]
+                0.01    0.00 11521368/23126046     plusUnassignedConstraints [6]
+[13]     4.8    0.02    0.00 23126046         getConstraintVarCount [13]
+-----------------------------------------------
+                0.00    0.00      25/7881171     nodeReduce [29]
+                0.00    0.00     997/7881171     makeNodeConsistent [28]
+                0.00    0.00     997/7881171     makeArcConsistent [21]
+                0.00    0.00     997/7881171     setVarConstraints [30]
+                0.00    0.00    2914/7881171     arcReduce [22]
+                0.00    0.00    7128/7881171     addVariableArcs [25]
+                0.00    0.00   29207/7881171     satisfiable [23]
+                0.00    0.00  159938/7881171     recursiveBacktracking [3]
+                0.00    0.00 3838512/7881171     limitUnassignedConstraints [5]
+                0.00    0.00 3840456/7881171     plusUnassignedConstraints [6]
+[14]     3.2    0.01    0.00 7881171         getIntegerSetValues [14]
+-----------------------------------------------
+                0.00    0.00 3838512/7678968     limitUnassignedConstraints [5]
+                0.01    0.00 3840456/7678968     plusUnassignedConstraints [6]
+[15]     3.2    0.01    0.00 7678968         variableInSequence [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     3.2    0.01    0.00                 addBackupToFront [16]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     3.2    0.01    0.00                 insertVariableBetween [17]
+-----------------------------------------------
+                0.00    0.00       9/549460      emptyDomain [33]
+                0.00    0.00     162/549460      newVariable [31]
+                0.00    0.00     997/549460      newValConstraint [27]
+                0.01    0.00  548292/549460      getSingletonDomain [19]
+[18]     3.2    0.01    0.00  549460         emptyIntegerSet [18]
+-----------------------------------------------
+                0.00    0.00     225/548292      nodeReduce [29]
+                0.00    0.00    9501/548292      satisfiable [23]
+                0.00    0.00   11229/548292      arcReduce [22]
+                0.00    0.01  527337/548292      recursiveBacktracking [3]
+[19]     3.2    0.00    0.01  548292         getSingletonDomain [19]
+                0.01    0.00  548292/549460      emptyIntegerSet [18]
+                0.00    0.00  548292/716711      safeMalloc [50]
+                0.00    0.00  548292/552230      addIntegerToSet [52]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     1.6    0.01    0.00                 printConstraintList [20]
+-----------------------------------------------
+                0.00    0.00       1/1           solve [2]
+[21]     0.3    0.00    0.00       1         makeArcConsistent [21]
+                0.00    0.00    2914/2914        arcReduce [22]
+                0.00    0.00     297/297         addVariableArcs [25]
+                0.00    0.00       1/1           makeNodeConsistent [28]
+                0.00    0.00    1944/24512805     getVariable [8]
+                0.00    0.00     997/7881171     getIntegerSetValues [14]
+                0.00    0.00     997/23126046     getConstraintVarCount [13]
+                0.00    0.00    5828/5828        dequeue [64]
+                0.00    0.00    3888/5828        enqueue [65]
+                0.00    0.00    2915/2915        isEmptyQueue [66]
+                0.00    0.00     997/7709817     getConstraintVarIndices [41]
+                0.00    0.00     997/23126046     setSize [35]
+                0.00    0.00     297/10017120     getVarDomain [38]
+                0.00    0.00     297/711653      getDomainSize [51]
+                0.00    0.00       2/2           emptyQueue [112]
+                0.00    0.00       1/2           freeQueue [113]
+-----------------------------------------------
+                0.00    0.00    2914/2914        makeArcConsistent [21]
+[22]     0.2    0.00    0.00    2914         arcReduce [22]
+                0.00    0.00   11229/11229       satisfiable [23]
+                0.00    0.00   11229/548292      getSingletonDomain [19]
+                0.00    0.00    2752/4549920     checkConstraint [4]
+                0.00    0.00    2914/7881171     getIntegerSetValues [14]
+                0.00    0.00    2914/23126046     getConstraintVarCount [13]
+                0.00    0.00   14143/10017120     getVarDomain [38]
+                0.00    0.00   14143/711653      getDomainSize [51]
+                0.00    0.00   14143/719727      setVarDomain [49]
+                0.00    0.00   11229/548382      freeDomain [54]
+                0.00    0.00    2914/23126046     setSize [35]
+                0.00    0.00    2914/171354      getDomainValues [55]
+                0.00    0.00     297/497         removeNthIntegerFromSet [93]
+                0.00    0.00     297/497         removeNthValueFromDomain [94]
+-----------------------------------------------
+                                9501             satisfiable [23]
+                0.00    0.00   11229/11229       arcReduce [22]
+[23]     0.2    0.00    0.00   11229+9501    satisfiable [23]
+                0.00    0.00    9501/4549920     checkConstraint [4]
+                0.00    0.00    9501/548292      getSingletonDomain [19]
+                0.00    0.00   45671/24512805     getVariable [8]
+                0.00    0.00   70177/23126046     getConstraintVarCount [13]
+                0.00    0.00   29207/7881171     getIntegerSetValues [14]
+                0.00    0.00   70177/23126046     setSize [35]
+                0.00    0.00   55172/10017120     getVarDomain [38]
+                0.00    0.00   37194/37194       singletonDomain [62]
+                0.00    0.00   20730/7709817     getConstraintVarIndices [41]
+                0.00    0.00   17978/719727      setVarDomain [49]
+                0.00    0.00    9501/548382      freeDomain [54]
+                0.00    0.00    9501/711653      getDomainSize [51]
+                0.00    0.00    8477/171354      getDomainValues [55]
+                                9501             satisfiable [23]
+-----------------------------------------------
+                0.00    0.00       1/1           timedMain [1]
+[24]     0.0    0.00    0.00       1         parser [24]
+                0.00    0.00     997/997         LL15_constraint [26]
+                0.00    0.00       1/1           setVarConstraints [30]
+                0.00    0.00       1/1           setProblemVariables [32]
+                0.00    0.00       9/9           emptyDomain [33]
+                0.00    0.00    1046/6509        yylex [63]
+                0.00    0.00     997/997         addConstraint [87]
+                0.00    0.00      10/10          LL13_varlist [105]
+                0.00    0.00      10/10          freeVarList [106]
+                0.00    0.00       9/9           LL6_subdomain [108]
+                0.00    0.00       9/9           addSequenceToSet [110]
+                0.00    0.00       9/9           addSequenceToDomain [109]
+                0.00    0.00       9/9           setVariableDomains [111]
+                0.00    0.00       9/548382      freeDomain [54]
+                0.00    0.00       1/1           emptyProblem [116]
+                0.00    0.00       1/1           addVariables [115]
+                0.00    0.00       1/1           setProblemConstraints [123]
+-----------------------------------------------
+                0.00    0.00     297/297         makeArcConsistent [21]
+[25]     0.0    0.00    0.00     297         addVariableArcs [25]
+                0.00    0.00    7128/7881171     getIntegerSetValues [14]
+                0.00    0.00    7128/24512805     getVariable [8]
+                0.00    0.00    7128/23126046     getConstraintVarCount [13]
+                0.00    0.00    7425/15115196     getVarConstraintCount [36]
+                0.00    0.00    7128/23126046     setSize [35]
+                0.00    0.00    7128/14635004     getConstraint [37]
+                0.00    0.00    7128/7709817     getConstraintVarIndices [41]
+                0.00    0.00    1940/5828        enqueue [65]
+                0.00    0.00     297/847591      getVarConstraintIndices [48]
+-----------------------------------------------
+                0.00    0.00     997/997         parser [24]
+[26]     0.0    0.00    0.00     997         LL15_constraint [26]
+                0.00    0.00     997/997         newValConstraint [27]
+                0.00    0.00    1994/1994        LL16_numExp [68]
+                0.00    0.00     997/997         setConstraintOperator [92]
+                0.00    0.00     997/997         setConstraintExp2 [90]
+                0.00    0.00     997/6509        yylex [63]
+-----------------------------------------------
+                0.00    0.00     997/997         LL15_constraint [26]
+[27]     0.0    0.00    0.00     997         newValConstraint [27]
+                0.00    0.00     997/549460      emptyIntegerSet [18]
+                0.00    0.00     997/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       1/1           makeArcConsistent [21]
+[28]     0.0    0.00    0.00       1         makeNodeConsistent [28]
+                0.00    0.00      25/25          nodeReduce [29]
+                0.00    0.00     997/7881171     getIntegerSetValues [14]
+                0.00    0.00     997/23126046     getConstraintVarCount [13]
+                0.00    0.00      25/24512805     getVariable [8]
+                0.00    0.00     997/7709817     getConstraintVarIndices [41]
+                0.00    0.00     997/23126046     setSize [35]
+                0.00    0.00      25/25          removeIntegerFromSet [104]
+                0.00    0.00      25/25          removeConstraintFromVariable [103]
+                0.00    0.00      25/711653      getDomainSize [51]
+                0.00    0.00      25/10017120     getVarDomain [38]
+-----------------------------------------------
+                0.00    0.00      25/25          makeNodeConsistent [28]
+[29]     0.0    0.00    0.00      25         nodeReduce [29]
+                0.00    0.00     225/4549920     checkConstraint [4]
+                0.00    0.00     225/548292      getSingletonDomain [19]
+                0.00    0.00      25/7881171     getIntegerSetValues [14]
+                0.00    0.00      25/23126046     getConstraintVarCount [13]
+                0.00    0.00     250/10017120     getVarDomain [38]
+                0.00    0.00     250/711653      getDomainSize [51]
+                0.00    0.00     250/719727      setVarDomain [49]
+                0.00    0.00     225/548382      freeDomain [54]
+                0.00    0.00     200/497         removeNthIntegerFromSet [93]
+                0.00    0.00     200/497         removeNthValueFromDomain [94]
+                0.00    0.00      25/23126046     setSize [35]
+                0.00    0.00      25/171354      getDomainValues [55]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [24]
+[30]     0.0    0.00    0.00       1         setVarConstraints [30]
+                0.00    0.00    5907/23126046     getConstraintVarCount [13]
+                0.00    0.00     997/7881171     getIntegerSetValues [14]
+                0.00    0.00    5907/23126046     setSize [35]
+                0.00    0.00    1994/1994        setTermConstraints [80]
+                0.00    0.00    1994/1994        setNumExpConstraints [79]
+                0.00    0.00    1994/1994        getConstraintSecondExp [75]
+                0.00    0.00     997/997         getConstraintFirstExp [89]
+                0.00    0.00     997/7709817     getConstraintVarIndices [41]
+-----------------------------------------------
+                0.00    0.00      81/81          setProblemVariables [32]
+[31]     0.0    0.00    0.00      81         newVariable [31]
+                0.00    0.00     162/549460      emptyIntegerSet [18]
+                0.00    0.00     162/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [24]
+[32]     0.0    0.00    0.00       1         setProblemVariables [32]
+                0.00    0.00      81/81          newVariable [31]
+                0.00    0.00      81/1160        safeCalloc [86]
+                0.00    0.00       3/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       9/9           parser [24]
+[33]     0.0    0.00    0.00       9         emptyDomain [33]
+                0.00    0.00       9/549460      emptyIntegerSet [18]
+                0.00    0.00       9/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       1/1           recursiveBacktracking [3]
+[34]     0.0    0.00    0.00       1         addSolution [34]
+                0.00    0.00      81/24512805     getVariable [8]
+                0.00    0.00      81/10017120     getVarDomain [38]
+                0.00    0.00      81/9099696     getSetMinimum [40]
+                0.00    0.00      81/9099696     getDomainMinimum [39]
+                0.00    0.00       2/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00      25/23126046     nodeReduce [29]
+                0.00    0.00     997/23126046     makeNodeConsistent [28]
+                0.00    0.00     997/23126046     makeArcConsistent [21]
+                0.00    0.00     997/23126046     solve [2]
+                0.00    0.00    2914/23126046     arcReduce [22]
+                0.00    0.00    5907/23126046     setVarConstraints [30]
+                0.00    0.00    7128/23126046     addVariableArcs [25]
+                0.00    0.00   70177/23126046     satisfiable [23]
+                0.00    0.00 11515536/23126046     limitUnassignedConstraints [5]
+                0.00    0.00 11521368/23126046     plusUnassignedConstraints [6]
+[35]     0.0    0.00    0.00 23126046         setSize [35]
+-----------------------------------------------
+                0.00    0.00    7425/15115196     addVariableArcs [25]
+                0.00    0.00 3998450/15115196     limitUnassignedConstraints [5]
+                0.00    0.00 4000475/15115196     plusUnassignedConstraints [6]
+                0.00    0.00 7108846/15115196     recursiveBacktracking [3]
+[36]     0.0    0.00    0.00 15115196         getVarConstraintCount [36]
+-----------------------------------------------
+                0.00    0.00    7128/14635004     addVariableArcs [25]
+                0.00    0.00 3838512/14635004     limitUnassignedConstraints [5]
+                0.00    0.00 3840456/14635004     plusUnassignedConstraints [6]
+                0.00    0.00 6948908/14635004     recursiveBacktracking [3]
+[37]     0.0    0.00    0.00 14635004         getConstraint [37]
+-----------------------------------------------
+                0.00    0.00      25/10017120     makeNodeConsistent [28]
+                0.00    0.00      81/10017120     addSolution [34]
+                0.00    0.00      81/10017120     setVariableDomains [111]
+                0.00    0.00     243/10017120     solve [2]
+                0.00    0.00     250/10017120     nodeReduce [29]
+                0.00    0.00     297/10017120     makeArcConsistent [21]
+                0.00    0.00   14143/10017120     arcReduce [22]
+                0.00    0.00   55172/10017120     satisfiable [23]
+                0.00    0.00  847213/10017120     recursiveBacktracking [3]
+                0.00    0.00 9099615/10017120     calcFactor [7]
+[38]     0.0    0.00    0.00 10017120         getVarDomain [38]
+-----------------------------------------------
+                0.00    0.00      81/9099696     addSolution [34]
+                0.00    0.00 9099615/9099696     calcFactor [7]
+[39]     0.0    0.00    0.00 9099696         getDomainMinimum [39]
+-----------------------------------------------
+                0.00    0.00      81/9099696     addSolution [34]
+                0.00    0.00 9099615/9099696     calcFactor [7]
+[40]     0.0    0.00    0.00 9099696         getSetMinimum [40]
+-----------------------------------------------
+                0.00    0.00     997/7709817     makeNodeConsistent [28]
+                0.00    0.00     997/7709817     makeArcConsistent [21]
+                0.00    0.00     997/7709817     setVarConstraints [30]
+                0.00    0.00    7128/7709817     addVariableArcs [25]
+                0.00    0.00   20730/7709817     satisfiable [23]
+                0.00    0.00 3838512/7709817     limitUnassignedConstraints [5]
+                0.00    0.00 3840456/7709817     plusUnassignedConstraints [6]
+[41]     0.0    0.00    0.00 7709817         getConstraintVarIndices [41]
+-----------------------------------------------
+                0.00    0.00 6948908/6948908     recursiveBacktracking [3]
+[42]     0.0    0.00    0.00 6948908         determinable [42]
+-----------------------------------------------
+                0.00    0.00 6069871/6069871     resortVariableSequence [47]
+[43]     0.0    0.00    0.00 6069871         mcvOrdered [43]
+-----------------------------------------------
+                0.00    0.00 3840456/3840456     plusUnassignedConstraints [6]
+[44]     0.0    0.00    0.00 3840456         plusVarConstraintDegree [44]
+-----------------------------------------------
+                0.00    0.00 3838512/3838512     limitUnassignedConstraints [5]
+[45]     0.0    0.00    0.00 3838512         lowerUnassignedVar [45]
+-----------------------------------------------
+                0.00    0.00 3838512/3838512     limitUnassignedConstraints [5]
+[46]     0.0    0.00    0.00 3838512         lowerVarConstraintDegree [46]
+-----------------------------------------------
+                0.00    0.00      81/2470529     insertVarInSequence [100]
+                0.00    0.00 1234738/2470529     limitUnassignedConstraints [5]
+                0.00    0.00 1235710/2470529     plusUnassignedConstraints [6]
+[47]     0.0    0.00    0.00 2470529         resortVariableSequence [47]
+                0.00    0.00 6069871/6069871     mcvOrdered [43]
+-----------------------------------------------
+                0.00    0.00     297/847591      addVariableArcs [25]
+                0.00    0.00  159938/847591      limitUnassignedConstraints [5]
+                0.00    0.00  160019/847591      plusUnassignedConstraints [6]
+                0.00    0.00  527337/847591      recursiveBacktracking [3]
+[48]     0.0    0.00    0.00  847591         getVarConstraintIndices [48]
+-----------------------------------------------
+                0.00    0.00      81/719727      setVariableDomains [111]
+                0.00    0.00     250/719727      nodeReduce [29]
+                0.00    0.00   14143/719727      arcReduce [22]
+                0.00    0.00   17978/719727      satisfiable [23]
+                0.00    0.00  687275/719727      recursiveBacktracking [3]
+[49]     0.0    0.00    0.00  719727         setVarDomain [49]
+-----------------------------------------------
+                0.00    0.00       1/716711      emptyVariableSequence [117]
+                0.00    0.00       1/716711      setProblemConstraints [123]
+                0.00    0.00       1/716711      emptyProblem [116]
+                0.00    0.00       2/716711      addSolution [34]
+                0.00    0.00       2/716711      solve [2]
+                0.00    0.00       3/716711      setProblemVariables [32]
+                0.00    0.00       9/716711      emptyDomain [33]
+                0.00    0.00      10/716711      newVarList [107]
+                0.00    0.00      81/716711      copyDomain [97]
+                0.00    0.00      81/716711      insertVarInSequence [100]
+                0.00    0.00     152/716711      addVariable [96]
+                0.00    0.00     162/716711      newVariable [31]
+                0.00    0.00     997/716711      newValConstraint [27]
+                0.00    0.00     997/716711      addConstraint [87]
+                0.00    0.00    1994/716711      newNumExpression [76]
+                0.00    0.00    1994/716711      newTerm [77]
+                0.00    0.00    1994/716711      newValueFactor [78]
+                0.00    0.00  159938/716711      emptyBackup [56]
+                0.00    0.00  548292/716711      getSingletonDomain [19]
+[50]     0.0    0.00    0.00  716711         safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00      25/711653      makeNodeConsistent [28]
+                0.00    0.00     162/711653      solve [2]
+                0.00    0.00     250/711653      nodeReduce [29]
+                0.00    0.00     297/711653      makeArcConsistent [21]
+                0.00    0.00    9501/711653      satisfiable [23]
+                0.00    0.00   14143/711653      arcReduce [22]
+                0.00    0.00  687275/711653      recursiveBacktracking [3]
+[51]     0.0    0.00    0.00  711653         getDomainSize [51]
+-----------------------------------------------
+                0.00    0.00    3938/552230      setValueConstraints [81]
+                0.00    0.00  548292/552230      getSingletonDomain [19]
+[52]     0.0    0.00    0.00  552230         addIntegerToSet [52]
+-----------------------------------------------
+                0.00    0.00     162/549541      freeVariable [99]
+                0.00    0.00     997/549541      freeConstraint [88]
+                0.00    0.00  548382/549541      freeDomain [54]
+[53]     0.0    0.00    0.00  549541         freeIntegerSet [53]
+-----------------------------------------------
+                0.00    0.00       9/548382      parser [24]
+                0.00    0.00      81/548382      setVariableDomains [111]
+                0.00    0.00     225/548382      nodeReduce [29]
+                0.00    0.00    9501/548382      satisfiable [23]
+                0.00    0.00   11229/548382      arcReduce [22]
+                0.00    0.00  527337/548382      recursiveBacktracking [3]
+[54]     0.0    0.00    0.00  548382         freeDomain [54]
+                0.00    0.00  548382/549541      freeIntegerSet [53]
+-----------------------------------------------
+                0.00    0.00      25/171354      nodeReduce [29]
+                0.00    0.00    2914/171354      arcReduce [22]
+                0.00    0.00    8477/171354      satisfiable [23]
+                0.00    0.00  159938/171354      recursiveBacktracking [3]
+[55]     0.0    0.00    0.00  171354         getDomainValues [55]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[56]     0.0    0.00    0.00  159938         emptyBackup [56]
+                0.00    0.00  159938/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[57]     0.0    0.00    0.00  159938         freeBackup [57]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[58]     0.0    0.00    0.00  159938         getFirstVariablePosition [58]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[59]     0.0    0.00    0.00  159938         getVariableAtPosition [59]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[60]     0.0    0.00    0.00  159938         removeVarFromSequence [60]
+-----------------------------------------------
+                0.00    0.00  159938/159938      recursiveBacktracking [3]
+[61]     0.0    0.00    0.00  159938         restoreVariableSequence [61]
+-----------------------------------------------
+                0.00    0.00   37194/37194       satisfiable [23]
+[62]     0.0    0.00    0.00   37194         singletonDomain [62]
+-----------------------------------------------
+                0.00    0.00      27/6509        LL6_subdomain [108]
+                0.00    0.00     324/6509        LL13_varlist [105]
+                0.00    0.00     997/6509        LL15_constraint [26]
+                0.00    0.00    1046/6509        parser [24]
+                0.00    0.00    1994/6509        LL18_factor [70]
+                0.00    0.00    2121/6509        LL11_var [67]
+[63]     0.0    0.00    0.00    6509         yylex [63]
+                0.00    0.00       2/2           yy_get_previous_state [114]
+                0.00    0.00       1/1           yyensure_buffer_stack [125]
+                0.00    0.00       1/1           yy_create_buffer [124]
+                0.00    0.00       1/1           yyrestart [126]
+-----------------------------------------------
+                0.00    0.00    5828/5828        makeArcConsistent [21]
+[64]     0.0    0.00    0.00    5828         dequeue [64]
+-----------------------------------------------
+                0.00    0.00    1940/5828        addVariableArcs [25]
+                0.00    0.00    3888/5828        makeArcConsistent [21]
+[65]     0.0    0.00    0.00    5828         enqueue [65]
+-----------------------------------------------
+                0.00    0.00    2915/2915        makeArcConsistent [21]
+[66]     0.0    0.00    0.00    2915         isEmptyQueue [66]
+-----------------------------------------------
+                0.00    0.00     152/2121        LL13_varlist [105]
+                0.00    0.00    1969/2121        LL18_factor [70]
+[67]     0.0    0.00    0.00    2121         LL11_var [67]
+                0.00    0.00    2121/6509        yylex [63]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL15_constraint [26]
+[68]     0.0    0.00    0.00    1994         LL16_numExp [68]
+                0.00    0.00    1994/1994        LL17_term [69]
+                0.00    0.00    1994/1994        newNumExpression [76]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL16_numExp [68]
+[69]     0.0    0.00    0.00    1994         LL17_term [69]
+                0.00    0.00    1994/1994        newTerm [77]
+                0.00    0.00    1994/1994        LL18_factor [70]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL17_term [69]
+[70]     0.0    0.00    0.00    1994         LL18_factor [70]
+                0.00    0.00    1994/6509        yylex [63]
+                0.00    0.00    1994/1994        newValueFactor [78]
+                0.00    0.00    1969/2121        LL11_var [67]
+                0.00    0.00    1969/1969        newVarVal [85]
+                0.00    0.00      25/25          newIntVal [102]
+-----------------------------------------------
+                0.00    0.00    1994/1994        freeTerm [73]
+[71]     0.0    0.00    0.00    1994         freeFactor [71]
+-----------------------------------------------
+                0.00    0.00    1994/1994        freeConstraint [88]
+[72]     0.0    0.00    0.00    1994         freeNumExpression [72]
+                0.00    0.00    1994/1994        freeTerm [73]
+-----------------------------------------------
+                0.00    0.00    1994/1994        freeNumExpression [72]
+[73]     0.0    0.00    0.00    1994         freeTerm [73]
+                0.00    0.00    1994/1994        freeFactor [71]
+-----------------------------------------------
+                0.00    0.00      25/1994        removeConstraintFromVariable [103]
+                0.00    0.00    1969/1994        addConstraintToVariable [82]
+[74]     0.0    0.00    0.00    1994         getConstraintIndex [74]
+-----------------------------------------------
+                0.00    0.00    1994/1994        setVarConstraints [30]
+[75]     0.0    0.00    0.00    1994         getConstraintSecondExp [75]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL16_numExp [68]
+[76]     0.0    0.00    0.00    1994         newNumExpression [76]
+                0.00    0.00    1994/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL17_term [69]
+[77]     0.0    0.00    0.00    1994         newTerm [77]
+                0.00    0.00    1994/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00    1994/1994        LL18_factor [70]
+[78]     0.0    0.00    0.00    1994         newValueFactor [78]
+                0.00    0.00    1994/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00    1994/1994        setVarConstraints [30]
+[79]     0.0    0.00    0.00    1994         setNumExpConstraints [79]
+-----------------------------------------------
+                0.00    0.00    1994/1994        setVarConstraints [30]
+[80]     0.0    0.00    0.00    1994         setTermConstraints [80]
+                0.00    0.00    1994/1994        setValueConstraints [81]
+-----------------------------------------------
+                0.00    0.00    1994/1994        setTermConstraints [80]
+[81]     0.0    0.00    0.00    1994         setValueConstraints [81]
+                0.00    0.00    3938/552230      addIntegerToSet [52]
+                0.00    0.00    1969/1969        addConstraintToVariable [82]
+                0.00    0.00    1969/1969        addVariableToConstraint [83]
+-----------------------------------------------
+                0.00    0.00    1969/1969        setValueConstraints [81]
+[82]     0.0    0.00    0.00    1969         addConstraintToVariable [82]
+                0.00    0.00    1969/1994        getConstraintIndex [74]
+-----------------------------------------------
+                0.00    0.00    1969/1969        setValueConstraints [81]
+[83]     0.0    0.00    0.00    1969         addVariableToConstraint [83]
+                0.00    0.00    1969/1969        getVariableIndex [84]
+-----------------------------------------------
+                0.00    0.00    1969/1969        addVariableToConstraint [83]
+[84]     0.0    0.00    0.00    1969         getVariableIndex [84]
+-----------------------------------------------
+                0.00    0.00    1969/1969        LL18_factor [70]
+[85]     0.0    0.00    0.00    1969         newVarVal [85]
+-----------------------------------------------
+                0.00    0.00      81/1160        setProblemVariables [32]
+                0.00    0.00      82/1160        setProblemConstraints [123]
+                0.00    0.00     997/1160        solve [2]
+[86]     0.0    0.00    0.00    1160         safeCalloc [86]
+-----------------------------------------------
+                0.00    0.00     997/997         parser [24]
+[87]     0.0    0.00    0.00     997         addConstraint [87]
+                0.00    0.00     997/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00     997/997         freeProblem [119]
+[88]     0.0    0.00    0.00     997         freeConstraint [88]
+                0.00    0.00    1994/1994        freeNumExpression [72]
+                0.00    0.00     997/549541      freeIntegerSet [53]
+-----------------------------------------------
+                0.00    0.00     997/997         setVarConstraints [30]
+[89]     0.0    0.00    0.00     997         getConstraintFirstExp [89]
+-----------------------------------------------
+                0.00    0.00     997/997         LL15_constraint [26]
+[90]     0.0    0.00    0.00     997         setConstraintExp2 [90]
+-----------------------------------------------
+                0.00    0.00     997/997         setProblemConstraints [123]
+[91]     0.0    0.00    0.00     997         setConstraintIndex [91]
+-----------------------------------------------
+                0.00    0.00     997/997         LL15_constraint [26]
+[92]     0.0    0.00    0.00     997         setConstraintOperator [92]
+-----------------------------------------------
+                0.00    0.00     200/497         nodeReduce [29]
+                0.00    0.00     297/497         arcReduce [22]
+[93]     0.0    0.00    0.00     497         removeNthIntegerFromSet [93]
+-----------------------------------------------
+                0.00    0.00     200/497         nodeReduce [29]
+                0.00    0.00     297/497         arcReduce [22]
+[94]     0.0    0.00    0.00     497         removeNthValueFromDomain [94]
+-----------------------------------------------
+                0.00    0.00       1/395         timedMain [1]
+                0.00    0.00      81/395         solve [2]
+                0.00    0.00     313/395         printDomain [101]
+[95]     0.0    0.00    0.00     395         addLog [95]
+-----------------------------------------------
+                0.00    0.00     152/152         LL13_varlist [105]
+[96]     0.0    0.00    0.00     152         addVariable [96]
+                0.00    0.00     152/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00      81/81          setVariableDomains [111]
+[97]     0.0    0.00    0.00      81         copyDomain [97]
+                0.00    0.00      81/716711      safeMalloc [50]
+                0.00    0.00      81/81          copyIntegerSet [98]
+-----------------------------------------------
+                0.00    0.00      81/81          copyDomain [97]
+[98]     0.0    0.00    0.00      81         copyIntegerSet [98]
+-----------------------------------------------
+                0.00    0.00      81/81          freeProblem [119]
+[99]     0.0    0.00    0.00      81         freeVariable [99]
+                0.00    0.00     162/549541      freeIntegerSet [53]
+-----------------------------------------------
+                0.00    0.00      81/81          solve [2]
+[100]    0.0    0.00    0.00      81         insertVarInSequence [100]
+                0.00    0.00      81/716711      safeMalloc [50]
+                0.00    0.00      81/2470529     resortVariableSequence [47]
+-----------------------------------------------
+                0.00    0.00      81/81          solve [2]
+[101]    0.0    0.00    0.00      81         printDomain [101]
+                0.00    0.00     313/395         addLog [95]
+-----------------------------------------------
+                0.00    0.00      25/25          LL18_factor [70]
+[102]    0.0    0.00    0.00      25         newIntVal [102]
+-----------------------------------------------
+                0.00    0.00      25/25          makeNodeConsistent [28]
+[103]    0.0    0.00    0.00      25         removeConstraintFromVariable [103]
+                0.00    0.00      25/1994        getConstraintIndex [74]
+-----------------------------------------------
+                0.00    0.00      25/25          makeNodeConsistent [28]
+[104]    0.0    0.00    0.00      25         removeIntegerFromSet [104]
+-----------------------------------------------
+                0.00    0.00      10/10          parser [24]
+[105]    0.0    0.00    0.00      10         LL13_varlist [105]
+                0.00    0.00     324/6509        yylex [63]
+                0.00    0.00     152/2121        LL11_var [67]
+                0.00    0.00     152/152         addVariable [96]
+                0.00    0.00      10/10          newVarList [107]
+-----------------------------------------------
+                                  18             freeVarList [106]
+                0.00    0.00      10/10          parser [24]
+[106]    0.0    0.00    0.00      10+18      freeVarList [106]
+                                  18             freeVarList [106]
+-----------------------------------------------
+                0.00    0.00      10/10          LL13_varlist [105]
+[107]    0.0    0.00    0.00      10         newVarList [107]
+                0.00    0.00      10/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       9/9           parser [24]
+[108]    0.0    0.00    0.00       9         LL6_subdomain [108]
+                0.00    0.00      27/6509        yylex [63]
+-----------------------------------------------
+                0.00    0.00       9/9           parser [24]
+[109]    0.0    0.00    0.00       9         addSequenceToDomain [109]
+-----------------------------------------------
+                0.00    0.00       9/9           parser [24]
+[110]    0.0    0.00    0.00       9         addSequenceToSet [110]
+-----------------------------------------------
+                0.00    0.00       9/9           parser [24]
+[111]    0.0    0.00    0.00       9         setVariableDomains [111]
+                0.00    0.00      81/548382      freeDomain [54]
+                0.00    0.00      81/10017120     getVarDomain [38]
+                0.00    0.00      81/81          copyDomain [97]
+                0.00    0.00      81/719727      setVarDomain [49]
+-----------------------------------------------
+                0.00    0.00       2/2           makeArcConsistent [21]
+[112]    0.0    0.00    0.00       2         emptyQueue [112]
+-----------------------------------------------
+                0.00    0.00       1/2           makeArcConsistent [21]
+                0.00    0.00       1/2           solve [2]
+[113]    0.0    0.00    0.00       2         freeQueue [113]
+-----------------------------------------------
+                0.00    0.00       2/2           yylex [63]
+[114]    0.0    0.00    0.00       2         yy_get_previous_state [114]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [24]
+[115]    0.0    0.00    0.00       1         addVariables [115]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [24]
+[116]    0.0    0.00    0.00       1         emptyProblem [116]
+                0.00    0.00       1/716711      safeMalloc [50]
+-----------------------------------------------
+                0.00    0.00       1/1           solve [2]
+[117]    0.0    0.00    0.00       1         emptyVariableSequence [117]
+                0.00    0.00       1/716711      safeMalloc [50]
+-----------------------------------------------
+                                 110             freeConstraintList [118]
+                0.00    0.00       1/1           setProblemConstraints [123]
+[118]    0.0    0.00    0.00       1+110     freeConstraintList [118]
+                                 110             freeConstraintList [118]
+-----------------------------------------------
+                0.00    0.00       1/1           timedMain [1]
+[119]    0.0    0.00    0.00       1         freeProblem [119]
+                0.00    0.00     997/997         freeConstraint [88]
+                0.00    0.00      81/81          freeVariable [99]
+                0.00    0.00       1/1           freeVariableSequence [121]
+-----------------------------------------------
+                0.00    0.00       1/1           solve [2]
+[120]    0.0    0.00    0.00       1         freeSolutionList [120]
+-----------------------------------------------
+                0.00    0.00       1/1           freeProblem [119]
+[121]    0.0    0.00    0.00       1         freeVariableSequence [121]
+                0.00    0.00       1/1           freeVariableSequenceRec [122]
+-----------------------------------------------
+                                   7             freeVariableSequenceRec [122]
+                0.00    0.00       1/1           freeVariableSequence [121]
+[122]    0.0    0.00    0.00       1+7       freeVariableSequenceRec [122]
+                                   7             freeVariableSequenceRec [122]
+-----------------------------------------------
+                0.00    0.00       1/1           parser [24]
+[123]    0.0    0.00    0.00       1         setProblemConstraints [123]
+                0.00    0.00     997/997         setConstraintIndex [91]
+                0.00    0.00      82/1160        safeCalloc [86]
+                0.00    0.00       1/716711      safeMalloc [50]
+                0.00    0.00       1/1           freeConstraintList [118]
+-----------------------------------------------
+                0.00    0.00       1/1           yylex [63]
+[124]    0.0    0.00    0.00       1         yy_create_buffer [124]
+-----------------------------------------------
+                0.00    0.00       1/1           yylex [63]
+[125]    0.0    0.00    0.00       1         yyensure_buffer_stack [125]
+-----------------------------------------------
+                0.00    0.00       1/1           yylex [63]
+[126]    0.0    0.00    0.00       1         yyrestart [126]
+-----------------------------------------------
+
+Index by function name
+
+  [67] LL11_var              [119] freeProblem           [107] newVarList
+ [105] LL13_varlist          [113] freeQueue              [85] newVarVal
+  [26] LL15_constraint       [120] freeSolutionList       [31] newVariable
+  [68] LL16_numExp            [73] freeTerm               [29] nodeReduce
+  [69] LL17_term             [106] freeVarList            [24] parser
+  [70] LL18_factor            [99] freeVariable            [6] plusUnassignedConstraints
+ [108] LL6_subdomain         [121] freeVariableSequence   [10] plusUnassignedVar
+  [16] addBackupToFront      [122] freeVariableSequenceRec [44] plusVarConstraintDegree
+  [87] addConstraint          [37] getConstraint          [20] printConstraintList
+  [82] addConstraintToVariable [89] getConstraintFirstExp [101] printDomain
+  [52] addIntegerToSet        [74] getConstraintIndex      [3] recursiveBacktracking
+  [95] addLog                 [75] getConstraintSecondExp [103] removeConstraintFromVariable
+ [109] addSequenceToDomain    [13] getConstraintVarCount [104] removeIntegerFromSet
+ [110] addSequenceToSet       [41] getConstraintVarIndices [93] removeNthIntegerFromSet
+  [34] addSolution            [39] getDomainMinimum       [94] removeNthValueFromDomain
+  [96] addVariable            [51] getDomainSize          [60] removeVarFromSequence
+  [25] addVariableArcs        [55] getDomainValues        [47] resortVariableSequence
+  [83] addVariableToConstraint [58] getFirstVariablePosition [61] restoreVariableSequence
+ [115] addVariables           [14] getIntegerSetValues    [86] safeCalloc
+  [22] arcReduce              [40] getSetMinimum          [50] safeMalloc
+   [9] calcExp                [19] getSingletonDomain     [23] satisfiable
+   [7] calcFactor             [36] getVarConstraintCount  [90] setConstraintExp2
+  [12] calcTerm               [48] getVarConstraintIndices [91] setConstraintIndex
+   [4] checkConstraint        [38] getVarDomain           [92] setConstraintOperator
+  [97] copyDomain              [8] getVariable            [79] setNumExpConstraints
+  [98] copyIntegerSet         [59] getVariableAtPosition [123] setProblemConstraints
+  [64] dequeue                [84] getVariableIndex       [32] setProblemVariables
+  [42] determinable          [100] insertVarInSequence    [35] setSize
+  [56] emptyBackup            [17] insertVariableBetween  [80] setTermConstraints
+  [33] emptyDomain            [66] isEmptyQueue           [81] setValueConstraints
+  [18] emptyIntegerSet         [5] limitUnassignedConstraints [30] setVarConstraints
+ [116] emptyProblem           [45] lowerUnassignedVar     [49] setVarDomain
+ [112] emptyQueue             [46] lowerVarConstraintDegree [111] setVariableDomains
+ [117] emptyVariableSequence  [21] makeArcConsistent      [62] singletonDomain
+  [65] enqueue                [28] makeNodeConsistent      [2] solve
+  [57] freeBackup             [43] mcvOrdered             [15] variableInSequence
+  [88] freeConstraint         [11] mrvOrdered            [124] yy_create_buffer
+ [118] freeConstraintList    [102] newIntVal             [114] yy_get_previous_state
+  [54] freeDomain             [76] newNumExpression      [125] yyensure_buffer_stack
+  [71] freeFactor             [77] newTerm                [63] yylex
+  [53] freeIntegerSet         [27] newValConstraint      [126] yyrestart
+  [72] freeNumExpression      [78] newValueFactor

@@ -1,0 +1,11 @@
+variables:
+X0 : integer;
+
+domains:
+X0 <- [-100..100];
+
+constraints:
+X0 > -1;
+X0 < 1;
+
+solutions:1
